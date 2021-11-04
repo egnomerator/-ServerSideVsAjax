@@ -1,0 +1,130 @@
+﻿@model Dictionary<long, Dev>;
+
+@{
+    ViewData["Title"] = "Devs";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="h2" style="display: inline">
+            Reload
+        </div>
+        <a class="btn btn-primary" style="display: inline" asp-area="" asp-controller="Dev" asp-action="Devs">Refresh</a>
+        <p></p>
+        <form asp-controller="Dev" asp-action="Create" method="post">
+            <div>
+                @{
+                    var largestExistingId = Model.Keys.OrderByDescending(k => k).FirstOrDefault();
+                    var nextId = largestExistingId + 1;
+                }
+                <input name="id" id="newDevId" type="number" readonly value="@nextId" />
+                <label for="newDevId">Next Id</label>
+            </div>
+            <div>
+                <input name="name" id="newDevName" type="text" />
+                <label for="newDevName">Name</label>
+            </div>
+            <input type="submit" value="Save Dev" />
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count < 1)
+                {
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            There are no devs.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var dev in Model)
+                    {
+                        var devRowId = $"devRowId{dev.Value.Id}";
+                        <tr id="@devRowId">
+                            <td>@dev.Value.Id</td>
+                            <td>
+                                <input type="text" value="@dev.Value.Name" onchange="devs.nonAjaxDevEdited(this)" />
+                            </td>
+                            <td>
+                                <form asp-controller="Dev" asp-action="Dev" method="get" style="display:inline;">
+                                    <input type="hidden" name="id" value="@dev.Value.Id" />
+                                    <input type="submit" value="View" />
+                                </form>
+                                <form asp-controller="Dev" asp-action="Edit" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@dev.Value.Id" />
+                                    <input type="hidden" name="name" value="@dev.Value.Name" />
+                                    <input type="submit" value="Edit" />
+                                </form>
+                                <form asp-controller="Dev" asp-action="Delete" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@dev.Value.Id" />
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <div class="h2" style="display: inline">
+            Ajax
+        </div>
+        <a class="btn btn-primary" style="display: inline" onclick="devs.refreshDevs()">
+            Refresh
+        </a>
+        <p></p>
+        <div>
+            @{
+                var largestExistingIdAjax = Model.Keys.OrderByDescending(k => k).FirstOrDefault();
+                var nextIdAjax = largestExistingIdAjax + 1;
+            }
+            <input name="id" id="ajaxNewDevId" type="number" readonly value="@nextIdAjax" />
+            <label for="ajaxNewDevId">Next Id</label>
+        </div>
+        <div>
+            <input name="name" id="ajaxNewDevName" type="text" />
+            <label for="ajaxNewDevName">Name</label>
+        </div>
+        <button id="devSaveId" onclick="devs.createDev()">Save Dev</button>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody id="ajaxTableBody">
+            </tbody>
+        </table>
+        <p></p>
+        <div>
+            <div class="h4" style="display:inline;">Dev Details:</div>
+            <div id="ajaxDevDetailsId" style="display:inline;"></div>
+        </div>
+        <p></p>
+        <div>
+            <div class="h4" style="display:inline;">Ajax Result:</div>
+            <div id="ajaxResultId" style="display:inline;"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/Devs/index.js" asp-append-version="true"></script>
+    <script>
+        devs.getDevs();
+    </script>
+}
