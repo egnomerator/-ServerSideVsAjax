@@ -24,15 +24,13 @@
     function getDevs() {
         updateDevDetails("");
 
-        $.ajax({
-            url: devsResource,
-            type: "get",
-            success: function (result, statusCode, xhr) {
-                if (xhr.status !== 200) displayAjaxResult(result, statusCode, xhr);
-                if (xhr.status === 200) addAllDevsToTable(result);
-                updateAjaxNextId();
-                displayNoDevsMessage();
-            }
+        var getAllDevs = ajaxCall("get", devsResource);
+
+        getAllDevs.done(function (result, textStatus, xhr) {
+            displayAjaxResult(result, textStatus, xhr);
+            if (xhr.status === 200) addAllDevsToTable(result);
+            updateAjaxNextId();
+            displayNoDevsMessage();
         });
     }
 
@@ -49,29 +47,24 @@
             name: $("#ajaxNewDevName").val()
         }
 
-        $.ajax({
-            url: devsResource,
-            type: "post",
-            data: JSON.stringify(newDev),
-            contentType: "application/json",
-            success: function (result, statusCode, xhr) {
-                displayAjaxResult(result, statusCode, xhr);
-                if (xhr.status === 201) addDevElementToTable(newDev);
-                updateAjaxNextId();
-            }
+        var createDev = ajaxCall("post", devsResource, newDev);
+
+        createDev.done(function (result, textStatus, xhr) {
+            displayAjaxResult(result, textStatus, xhr);
+            if (xhr.status === 201) addDevElementToTable(newDev);
+            updateAjaxNextId();
+            clearNewDevNameField();
         });
     }
 
     function viewDev(id) {
         updateDevDetails("");
 
-        $.ajax({
-            url: devsResource + id,
-            type: "get",
-            success: function (result, statusCode, xhr) {
-                displayAjaxResult(result, statusCode, xhr);
-                if (xhr.status === 200) updateDevDetails(result);
-            }
+        var getDev = ajaxCall("get", devsResource + id);
+
+        getDev.done(function (result, textStatus, xhr) {
+            displayAjaxResult(result, textStatus, xhr);
+            if (xhr.status === 200) updateDevDetails(result);
         });
     }
 
@@ -79,29 +72,23 @@
         updateDevDetails("");
         var devToEdit = getDevToEdit(id);
 
-        $.ajax({
-            url: devsResource,
-            type: "put",
-            data: JSON.stringify(devToEdit),
-            contentType: "application/json",
-            success: function (result, statusCode, xhr) {
-                displayAjaxResult(result, statusCode, xhr);
-            }
+        var updateDev = ajaxCall("put", devsResource, devToEdit);
+
+        updateDev.done(function (result, textStatus, xhr) {
+            displayAjaxResult(result, textStatus, xhr);
         });
     }
 
     function deleteDev(id) {
         updateDevDetails("");
 
-        $.ajax({
-            url: devsResource + id,
-            type: "delete",
-            success: function (result, statusCode, xhr) {
-                displayAjaxResult(result, statusCode, xhr);
-                if (xhr.status === 204) removeDevElement(id);
-                updateAjaxNextId();
-                displayNoDevsMessage();
-            }
+        var removeDev = ajaxCall("delete", devsResource + id);
+
+        removeDev.done(function (result, textStatus, xhr) {
+            displayAjaxResult(result, textStatus, xhr);
+            if (xhr.status === 204) removeDevElement(id);
+            updateAjaxNextId();
+            displayNoDevsMessage();
         });
     }
 
@@ -114,16 +101,16 @@
         $("#ajaxTableBody").empty();
     }
 
-    function displayAjaxResult(result, statusCode, xhr) {
+    function displayAjaxResult(result, textStatus, xhr) {
         var ajaxResult = document.getElementById("ajaxResultId");
 
         var r = result === undefined ? "" : JSON.stringify(result);
-        var c = JSON.stringify(statusCode);
+        var c = JSON.stringify(textStatus);
         var x = JSON.stringify(xhr);
 
         var fullResult = {
             content: r,
-            statusCode: c,
+            textStatus: c,
             jqXhr: x
         };
 
@@ -141,6 +128,11 @@
         var nextIdField = $("#ajaxNewDevId");
         var nextId = getHighestDevId() + 1;
         nextIdField.val(nextId);
+    }
+
+    function clearNewDevNameField() {
+        var newNameField = $("#ajaxNewDevName");
+        newNameField.val("");
     }
 
     function getHighestDevId() {
