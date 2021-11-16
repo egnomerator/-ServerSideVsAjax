@@ -52,7 +52,7 @@
                         <tr id="@devRowId">
                             <td>@dev.Value.Id</td>
                             <td>
-                                <input type="text" value="@dev.Value.Name" onchange="devs.nonAjaxDevEdited(this)" />
+                                <input type="text" value="@dev.Value.Name" onchange="nonAjaxDevs.devEdited(this)" />
                             </td>
                             <td>
                                 <form asp-controller="Dev" asp-action="Dev" method="get" style="display:inline;">
@@ -79,7 +79,7 @@
         <div class="h2" style="display: inline">
             Ajax
         </div>
-        <a class="btn btn-primary" style="display: inline" onclick="devs.refreshDevs()">
+        <a class="btn btn-primary" style="display: inline" onclick="ajaxDevs.refreshDevs()">
             Refresh
         </a>
         <p></p>
@@ -95,7 +95,7 @@
             <input name="name" id="ajaxNewDevName" type="text" />
             <label for="ajaxNewDevName">Name</label>
         </div>
-        <button id="devSaveId" onclick="devs.createDev()">Save Dev</button>
+        <button id="devSaveId" onclick="ajaxDevs.createDev()">Save Dev</button>
 
 
         <table class="table">
@@ -124,7 +124,8 @@
 
 @section scripts{
     <script src="~/js/Devs/index.js" asp-append-version="true"></script>
+    <script src="~/js/Devs/devsWebAPI.js" asp-append-version="true"></script>
     <script>
-        devs.getDevs();
+        ajaxDevs.getDevs();
     </script>
 }

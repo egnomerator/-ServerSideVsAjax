@@ -1,17 +1,9 @@
-﻿var devs = (function () {
+﻿var nonAjaxDevs = (function () {
     var api = {
-        nonAjaxDevEdited: function (input) { nonAjaxDevEdited(input); },
-        getDevs: function () { getDevs(); },
-        refreshDevs: function () { refreshDevs(); },
-        createDev: function () { createDev(); },
-        viewDev: function (id) { viewDev(id); },
-        editDev: function (id) { editDev(id); },
-        deleteDev: function (id) { deleteDev(id); }
+        devEdited: function (input) { devEdited(input); }
     }
 
-    var devsResource = "/api/devs/";
-
-    function nonAjaxDevEdited(input) {
+    function devEdited(input) {
         var editedDevTr = $(input).closest("tr");
         var editedRowId = editedDevTr[0].id;
         var hiddenNameInput =
@@ -21,10 +13,23 @@
         hiddenNameInput.val(newDevName);
     }
 
+    return api;
+})();
+
+var ajaxDevs = (function () {
+    var api = {
+        getDevs: function () { getDevs(); },
+        refreshDevs: function () { refreshDevs(); },
+        createDev: function () { createDev(); },
+        viewDev: function (id) { viewDev(id); },
+        editDev: function (id) { editDev(id); },
+        deleteDev: function (id) { deleteDev(id); }
+    }
+
     function getDevs() {
         updateDevDetails("");
 
-        var getAllDevs = ajaxCall("get", devsResource);
+        var getAllDevs = devsWebApi.getDevs();
 
         getAllDevs.done(function (result, textStatus, xhr) {
             displayAjaxResult(result, textStatus, xhr);
@@ -47,7 +52,7 @@
             name: $("#ajaxNewDevName").val()
         }
 
-        var createDev = ajaxCall("post", devsResource, newDev);
+        var createDev = devsWebApi.createDev(newDev);
 
         createDev.done(function (result, textStatus, xhr) {
             displayAjaxResult(result, textStatus, xhr);
@@ -60,7 +65,7 @@
     function viewDev(id) {
         updateDevDetails("");
 
-        var getDev = ajaxCall("get", devsResource + id);
+        var getDev = devsWebApi.viewDev(id);
 
         getDev.done(function (result, textStatus, xhr) {
             displayAjaxResult(result, textStatus, xhr);
@@ -72,7 +77,7 @@
         updateDevDetails("");
         var devToEdit = getDevToEdit(id);
 
-        var updateDev = ajaxCall("put", devsResource, devToEdit);
+        var updateDev = devsWebApi.editDev(devToEdit);
 
         updateDev.done(function (result, textStatus, xhr) {
             displayAjaxResult(result, textStatus, xhr);
@@ -82,7 +87,7 @@
     function deleteDev(id) {
         updateDevDetails("");
 
-        var removeDev = ajaxCall("delete", devsResource + id);
+        var removeDev = devsWebApi.deleteDev(id);
 
         removeDev.done(function (result, textStatus, xhr) {
             displayAjaxResult(result, textStatus, xhr);
@@ -187,17 +192,17 @@
                 .append($("<td>")
                     .append($("<button>")
                         .attr("id", "ajaxDevViewId" + dev.id)
-                        .attr("onclick", "devs.viewDev(" + dev.id + ")")
+                        .attr("onclick", "ajaxDevs.viewDev(" + dev.id + ")")
                         .text("View"))
                     .append(" ")
                     .append($("<button>")
                         .attr("id", "ajaxDevEditId" + dev.id)
-                        .attr("onclick", "devs.editDev(" + dev.id + ")")
+                        .attr("onclick", "ajaxDevs.editDev(" + dev.id + ")")
                         .text("Edit"))
                     .append(" ")
                     .append($("<button>")
                         .attr("id", "ajaxDevDeleteId" + dev.id)
-                        .attr("onclick", "devs.deleteDev(" + dev.id + ")")
+                        .attr("onclick", "ajaxDevs.deleteDev(" + dev.id + ")")
                         .text("Delete"))
                 );
 
