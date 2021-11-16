@@ -1,4 +1,17 @@
-﻿var nonAjaxDevs = (function () {
+﻿var reactDevs = (function () {
+    var api = {
+        renderReactDevs: function () { renderReactDevs(); }
+    }
+
+    function renderReactDevs() {
+        var container = $("#reactTableContainer")[0];
+        ClientApp.Components.renderDevsEditor(container);
+    }
+
+    return api;
+})();
+
+var nonAjaxDevs = (function () {
     var api = {
         devEdited: function (input) { devEdited(input); }
     }

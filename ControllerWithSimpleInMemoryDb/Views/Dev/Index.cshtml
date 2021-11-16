@@ -5,7 +5,7 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="h2" style="display: inline">
             Reload
         </div>
@@ -75,7 +75,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="h2" style="display: inline">
             Ajax
         </div>
@@ -120,12 +120,15 @@
             <div id="ajaxResultId" style="display:inline;"></div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div id="reactTableContainer"></div>
+    </div>
 </div>
-
 @section scripts{
     <script src="~/js/Devs/devsWebAPI.js" asp-append-version="true"></script>
     <script src="~/js/Devs/index.js" asp-append-version="true"></script>
     <script>
         ajaxDevs.getDevs();
+        reactDevs.renderReactDevs();
     </script>
 }

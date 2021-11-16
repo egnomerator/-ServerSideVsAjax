@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "isolatedModules": true,
+    "jsx": "react",
+    "noImplicitAny": false,
+    "removeComments": false,
+    "module": "ES2015",
+    "moduleResolution": "Node"
+  }
+}

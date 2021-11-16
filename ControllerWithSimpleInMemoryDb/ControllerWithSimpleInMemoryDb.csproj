@@ -2,11 +2,44 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\app\src\components\DevsEditor\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\EditableTable\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\index.tsx" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
+
+    <ItemGroup>
+    <Content Update="wwwroot\app\dist\bundle\bundle.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\app\dist\bundle\vendors.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+    <ItemGroup>
+      <TypeScriptCompile Include="wwwroot\app\src\components\DevsEditor\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\EditableTable\index.tsx" />
+    </ItemGroup>
+
+  <Target Name="NpmCI" Inputs="package.json" Outputs="node_modules/.install-stamp">
+    <Exec Command="npm ci" />
+    <!-- Write the stamp file, so incremental builds work -->
+    <Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
+  </Target>
+
+  <Target Name="NpmRunBuild" DependsOnTargets="NpmCI" BeforeTargets="BeforeBuild">
+    <Exec Command="npm run dev" Condition="'$(Configuration)'!='Release'" />
+    <Exec Command="npm run prod" Condition="'$(Configuration)'=='Release'" />
+  </Target>
 
 </Project>
