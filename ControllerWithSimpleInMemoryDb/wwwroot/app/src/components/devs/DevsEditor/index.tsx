@@ -16,16 +16,14 @@ export class DevsEditor extends React.Component {
             </a>
             <p></p>
             <div>
-                <label>
-                    <input name="id" id="reactNewDevId" type="number" readOnly={true} value={5} />
-                    {" "}Next Id
-                </label>
+                <input name="id" id="reactNewDevId" type="number" readOnly={true} value={5} />
+                {" "}
+                <label htmlFor="reactNewDevId">Next Id</label>
             </div>
             <div>
-                <label>
-                    <input name="name" id="reactNewDevName" type="text" />
-                    {" "}Name
-                </label>
+                <input name="name" id="reactNewDevName" type="text" />
+                {" "}
+                <label htmlFor="reactNewDevName">Name</label>
             </div>
             <button>Save Dev</button>
 

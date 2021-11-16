@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\app\src\components\DevsEditor\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\EditableTable\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devs\DevsEditor\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devs\EditableTr\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devs\TrEditorCell\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devs\EditableTable\index.tsx" />
     <Content Remove="wwwroot\app\src\components\index.tsx" />
   </ItemGroup>
 
@@ -26,9 +28,11 @@
   </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="wwwroot\app\src\components\DevsEditor\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devs\DevsEditor\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devs\EditableTr\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devs\TrEditorCell\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\EditableTable\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devs\EditableTable\index.tsx" />
     </ItemGroup>
 
   <Target Name="NpmCI" Inputs="package.json" Outputs="node_modules/.install-stamp">

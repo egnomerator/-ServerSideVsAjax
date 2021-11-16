@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { DevsEditor } from "./DevsEditor";
+import { DevsEditor } from "./devs/DevsEditor";
 
 
 function renderDevsEditor(container: Element) {

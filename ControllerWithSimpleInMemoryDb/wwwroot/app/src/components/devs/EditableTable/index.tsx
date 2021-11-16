@@ -1,4 +1,5 @@
 ﻿import * as React from "react";
+import { EditableTr } from "../EditableTr";
 
 export class EditableTable extends React.Component {
     constructor(props) {
@@ -16,11 +17,7 @@ export class EditableTable extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>testId</td>
-                        <td>testName</td>
-                        <td>testActions</td>
-                    </tr>
+                    <EditableTr />
                 </tbody>
             </table>
         </div>
