@@ -1,20 +1,21 @@
 ﻿import * as React from "react";
 
-export class TrEditorCell extends React.Component {
-    constructor(props) {
+interface TrEditorCellProps {
+    view(): void;
+    edit(): void;
+    delete(): void;
+}
+
+export class TrEditorCell extends React.Component<TrEditorCellProps> {
+    constructor(props: TrEditorCellProps) {
         super(props);
     }
 
-    // TODO
-    //  - ajaxDevViewId + dev.id (see Devs\index.js--pass dev.id in as props)
-    //      - same for ajaxDevEditId and ajaxDevDeleteId
-    //  - pass view/edit/delete functionality as props for onclick
-
     render() {
         return <td>
-            <button id="ajaxDevViewId">View</button>{" "}
-            <button id="ajaxDevEditId">View</button>{" "}
-            <button id="ajaxDevDeleteId">View</button>
+            <button onClick={this.props.view}>View</button>{" "}
+            <button onClick={this.props.edit}>Edit</button>{" "}
+            <button onClick={this.props.delete}>Delete</button>
         </td>
     }
 }

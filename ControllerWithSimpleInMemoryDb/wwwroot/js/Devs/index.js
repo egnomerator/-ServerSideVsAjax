@@ -5,7 +5,7 @@
 
     function renderReactDevs() {
         var container = $("#reactTableContainer")[0];
-        ClientApp.Components.renderDevsEditor(container);
+        ClientApp.Components.renderDevsEditor(container, devsWebApi);
     }
 
     return api;

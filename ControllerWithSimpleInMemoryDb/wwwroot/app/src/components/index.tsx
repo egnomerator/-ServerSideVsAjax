@@ -1,17 +1,18 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { DevsEditor } from "./devs/DevsEditor";
+import { DevsEditor, DevsWebApi } from "./devs/DevsEditor";
 
 
-function renderDevsEditor(container: Element) {
+function renderDevsEditor(container: Element, devsWebApi: object) {
+    const api = devsWebApi as DevsWebApi;
     ReactDOM.render(
-        <DevsEditor/> ,
+        <DevsEditor devsWebApi={api} />,
         container
     )
 }
 
 const Components = {
-    renderDevsEditor: function (container: Element) { renderDevsEditor(container); }
+    renderDevsEditor: function (container: Element, devsWebApi: object) { renderDevsEditor(container, devsWebApi); }
 }
 
 export default Components;

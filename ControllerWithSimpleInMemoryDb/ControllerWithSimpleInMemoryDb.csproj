@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\app\src\components\devs\AjaxResult\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devs\CreateDev\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devs\DevDetails\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devs\DevsEditor\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devs\EditableTr\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devs\TrEditorCell\index.tsx" />
@@ -28,6 +31,9 @@
   </ItemGroup>
 
     <ItemGroup>
+      <TypeScriptCompile Include="wwwroot\app\src\components\devs\AjaxResult\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devs\CreateDev\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devs\DevDetails\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devs\DevsEditor\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devs\EditableTr\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devs\TrEditorCell\index.tsx" />
