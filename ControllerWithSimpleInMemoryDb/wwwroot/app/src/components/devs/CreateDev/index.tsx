@@ -14,7 +14,6 @@ export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
     constructor(props: CreateDevProps) {
         super(props);
 
-        this.getNextIdFromProps = this.getNextIdFromProps.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.clearDevNameFieldOnSaveSuccessCallback = this.clearDevNameFieldOnSaveSuccessCallback.bind(this);
         this.handleDevNameChange = this.handleDevNameChange.bind(this);

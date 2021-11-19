@@ -28,15 +28,11 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
     constructor(props: EditableTableProps) {
         super(props);
 
-        this.getConsistentResetState = this.getConsistentResetState.bind(this);
-        this.determineNextId = this.determineNextId.bind(this);
         this.refreshTable = this.refreshTable.bind(this);
         this.save = this.save.bind(this);
         this.view = this.view.bind(this);
-        this.getExistingDevsGivenThisEditedDev = this.getExistingDevsGivenThisEditedDev.bind(this);
         this.edit = this.edit.bind(this);
         this.delete = this.delete.bind(this);
-        this.getCopyOfExistingDevs = this.getCopyOfExistingDevs.bind(this);
 
         const initialState = this.getConsistentResetState();
         this.state = initialState;
@@ -44,40 +40,6 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
 
     componentDidMount() {
         this.refreshTable();
-    }
-
-    getConsistentResetState(): EditableTableState {
-        return {
-            nextId: this.state === undefined ? this.determineNextId([]) : this.determineNextId(this.state.devs),
-            devs: this.state === undefined ? null : this.state.devs,
-            devDetails: "",
-            ajaxResult: ""
-        }
-    }
-
-    determineNextId(devs: Dev[]) {
-        if (devs === null) return 0;
-
-        let highestId = 0;
-        devs.map((dev) => {
-            if (dev.id > highestId) highestId = dev.id;
-        });
-
-        return highestId + 1;
-    }
-
-    getAjaxResult(result, textStatus, xhr) {
-        const r = result === undefined ? "" : JSON.stringify(result);
-        const c = JSON.stringify(textStatus);
-        const x = JSON.stringify(xhr);
-
-        const fullResult = {
-            content: r,
-            textStatus: c,
-            jqXhr: x
-        };
-
-        return JSON.stringify(fullResult);
     }
 
     refreshTable() {
@@ -172,6 +134,40 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
             const newNextId = this.determineNextId(newDevs);
             this.setState({ nextId: newNextId, devs: newDevs, ajaxResult: newAjaxResult });
         });
+    }
+
+    getConsistentResetState(): EditableTableState {
+        return {
+            nextId: this.state === undefined ? this.determineNextId([]) : this.determineNextId(this.state.devs),
+            devs: this.state === undefined ? null : this.state.devs,
+            devDetails: "",
+            ajaxResult: ""
+        }
+    }
+
+    determineNextId(devs: Dev[]) {
+        if (devs === null) return 0;
+
+        let highestId = 0;
+        devs.map((dev) => {
+            if (dev.id > highestId) highestId = dev.id;
+        });
+
+        return highestId + 1;
+    }
+
+    getAjaxResult(result, textStatus, xhr) {
+        const r = result === undefined ? "" : JSON.stringify(result);
+        const c = JSON.stringify(textStatus);
+        const x = JSON.stringify(xhr);
+
+        const fullResult = {
+            content: r,
+            textStatus: c,
+            jqXhr: x
+        };
+
+        return JSON.stringify(fullResult);
     }
 
     getCopyOfExistingDevs() {

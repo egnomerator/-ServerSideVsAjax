@@ -12,8 +12,6 @@ interface EditableTableProps {
 export class EditableTable extends React.Component<EditableTableProps> {
     constructor(props: EditableTableProps) {
         super(props);
-
-        this.getTableRows = this.getTableRows.bind(this);
     }
 
     getTableRows() {
