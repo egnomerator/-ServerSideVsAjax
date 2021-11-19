@@ -14,23 +14,6 @@ export class EditableTable extends React.Component<EditableTableProps> {
         super(props);
     }
 
-    getTableRows() {
-        if (this.props.devs.length < 1)
-            return <tr><td colSpan={3} className="text-center" >There are no devs.</td></tr>
-
-        const rows = [];
-        this.props.devs.map((dev) => {
-            rows.push(<EditableTr
-                key={nanoid()}
-                dev={dev}
-                view={this.props.view}
-                edit={this.props.edit}
-                delete={this.props.delete} />);
-        });
-
-        return rows;
-    }
-
     render() {
         return <table className="table">
             <thead>
@@ -41,7 +24,17 @@ export class EditableTable extends React.Component<EditableTableProps> {
                 </tr>
             </thead>
             <tbody>
-                {this.getTableRows()}
+                {
+                    this.props.devs.length < 1
+                        ? <tr><td colSpan={3} className="text-center" >There are no devs.</td></tr>
+                        : this.props.devs.map((dev) =>
+                            <EditableTr
+                                key={nanoid()}
+                                dev={dev}
+                                view={this.props.view}
+                                edit={this.props.edit}
+                                delete={this.props.delete} />)
+                }
             </tbody>
         </table>
     }

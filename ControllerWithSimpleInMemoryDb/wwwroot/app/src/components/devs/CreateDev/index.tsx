@@ -23,7 +23,7 @@ export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
         }
     }
 
-    getNextIdFromProps() {
+    getNextId() {
         return this.props.nextIdIsKnown ? this.props.nextId.toString() : "";
     }
 
@@ -42,7 +42,7 @@ export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
     render() {
         return <div>
             <div>
-                <input id="reactNewDevId" type="number" readOnly={true} value={this.getNextIdFromProps()} />
+                <input id="reactNewDevId" type="number" readOnly={true} value={this.getNextId()} />
                 {" "}
                 <label htmlFor="reactNewDevId">Next Id</label>
             </div>
