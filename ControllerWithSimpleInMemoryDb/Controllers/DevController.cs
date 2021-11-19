@@ -30,7 +30,7 @@ namespace ControllerWithSimpleInMemoryDb.Controllers
         [HttpPost]
         public IActionResult Create(long id, string name)
         {
-            DevDb.Devs.Add(id,new Dev { Id = id, Name = name});
+            DevDb.Devs.Add(id,new Dev { Id = id, Name = name ?? string.Empty});
 
             return RedirectToAction("Devs");
         }
