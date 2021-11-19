@@ -42,12 +42,12 @@ export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
     render() {
         return <div>
             <div>
-                <input name="id" id="reactNewDevId" type="number" readOnly={true} value={this.getNextIdFromProps()} />
+                <input id="reactNewDevId" type="number" readOnly={true} value={this.getNextIdFromProps()} />
                 {" "}
                 <label htmlFor="reactNewDevId">Next Id</label>
             </div>
             <div>
-                <input name="name" id="reactNewDevName" type="text" value={this.state.devName} onChange={this.handleDevNameChange} />
+                <input id="reactNewDevName" type="text" value={this.state.devName} onChange={this.handleDevNameChange} />
                 {" "}
                 <label htmlFor="reactNewDevName">Name</label>
             </div>
