@@ -1,10 +1,5 @@
 ﻿import * as React from "react";
-
-interface TrEditorCellProps {
-    view(): void;
-    edit(): void;
-    delete(): void;
-}
+import { TrEditorCellProps } from "./props";
 
 export class TrEditorCell extends React.Component<TrEditorCellProps> {
     constructor(props: TrEditorCellProps) {

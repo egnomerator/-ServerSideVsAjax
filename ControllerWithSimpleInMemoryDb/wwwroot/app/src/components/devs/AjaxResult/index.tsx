@@ -1,8 +1,5 @@
 ﻿import * as React from "react";
-
-interface AjaxResultProps {
-    result: string;
-}
+import { AjaxResultProps } from "./props";
 
 export class AjaxResult extends React.Component<AjaxResultProps> {
     constructor(props: AjaxResultProps) {

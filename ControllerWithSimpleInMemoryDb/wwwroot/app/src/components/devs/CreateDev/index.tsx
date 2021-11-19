@@ -1,14 +1,6 @@
 ﻿import * as React from "react";
-
-interface CreateDevProps {
-    nextId: number;
-    nextIdIsKnown: boolean;
-    save(name: string, onSuccessfulSave: () => void): void;
-}
-
-interface CreateDevState {
-    devName: string;
-}
+import { CreateDevState } from "./state";
+import { CreateDevProps } from "./props";
 
 export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
     constructor(props: CreateDevProps) {

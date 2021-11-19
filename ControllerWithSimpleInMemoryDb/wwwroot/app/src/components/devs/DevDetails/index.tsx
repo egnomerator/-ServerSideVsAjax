@@ -1,8 +1,5 @@
 ﻿import * as React from "react";
-
-interface DevDetailsProps {
-    details: string;
-}
+import { DevDetailsProps } from "./props";
 
 export class DevDetails extends React.Component<DevDetailsProps> {
     constructor(props: DevDetailsProps) {

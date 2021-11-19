@@ -4,6 +4,8 @@ import { CreateDev } from "../CreateDev";
 import { DevDetails } from "../DevDetails";
 import { EditableTable } from "../EditableTable";
 import { Dev } from "../models/Dev";
+import { EditableTableState } from "./state";
+import { EditableTableProps } from "./props";
 
 export interface DevsWebApi {
     getDevs(): any;
@@ -11,17 +13,6 @@ export interface DevsWebApi {
     viewDev(id: number): any;
     editDev(dev: Dev): any;
     deleteDev(id: number): any;
-}
-
-export interface EditableTableProps {
-    devsWebApi: DevsWebApi;
-}
-
-export interface EditableTableState {
-    nextId: number;
-    devs: Dev[];
-    devDetails: string;
-    ajaxResult: string;
 }
 
 export class DevsEditor extends React.Component<EditableTableProps, EditableTableState> {

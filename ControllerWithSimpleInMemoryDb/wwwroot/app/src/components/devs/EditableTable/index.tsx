@@ -1,14 +1,7 @@
 ﻿import { nanoid } from "nanoid";
 import * as React from "react";
 import { EditableTr } from "../EditableTr";
-import { Dev } from "../models/Dev";
-
-interface EditableTableProps {
-    devs: Dev[];
-    view(id: number): void;
-    edit(dev: Dev): void;
-    delete(id: number): void;
-}
+import { EditableTableProps } from "./props";
 
 export class EditableTable extends React.Component<EditableTableProps> {
     constructor(props: EditableTableProps) {

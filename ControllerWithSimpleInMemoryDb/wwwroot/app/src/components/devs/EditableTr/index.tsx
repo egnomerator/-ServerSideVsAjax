@@ -1,17 +1,8 @@
 ﻿import * as React from "react";
 import { TrEditorCell } from "../TrEditorCell";
 import { Dev } from "../models/Dev";
-
-interface EditableTrProps {
-    dev: Dev;
-    view(id: number): void;
-    edit(dev: Dev): void;
-    delete(id: number): void;
-}
-
-interface EditableTrState {
-    dev: Dev;
-}
+import { EditableTrProps } from "./props";
+import { EditableTrState } from "./state";
 
 export class EditableTr extends React.Component<EditableTrProps, EditableTrState> {
     constructor(props: EditableTrProps) {
