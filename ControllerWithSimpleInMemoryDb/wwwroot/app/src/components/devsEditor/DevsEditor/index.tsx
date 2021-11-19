@@ -7,14 +7,6 @@ import { Dev } from "../models/Dev";
 import { EditableTableState } from "./state";
 import { EditableTableProps } from "./props";
 
-export interface DevsWebApi {
-    getDevs(): any;
-    createDev(dev: Dev): any;
-    viewDev(id: number): any;
-    editDev(dev: Dev): any;
-    deleteDev(id: number): any;
-}
-
 export class DevsEditor extends React.Component<EditableTableProps, EditableTableState> {
     constructor(props: EditableTableProps) {
         super(props);
