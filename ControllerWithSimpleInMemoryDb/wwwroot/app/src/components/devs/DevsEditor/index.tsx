@@ -81,70 +81,66 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
     }
 
     refreshTable() {
-        const self = this;
-        const resetState = self.getConsistentResetState();
-        self.setState(resetState);
+        const resetState = this.getConsistentResetState();
+        this.setState(resetState);
 
-        const getAllDevs = self.props.devsWebApi.getDevs();
+        const getAllDevs = this.props.devsWebApi.getDevs();
 
-        getAllDevs.done(function (result, textStatus, xhr) {
+        getAllDevs.done((result, textStatus, xhr) => {
             let newDevs: Dev[] = [];
             if (xhr.status === 200) newDevs = result;
-            const newNextId = self.determineNextId(newDevs);
+            const newNextId = this.determineNextId(newDevs);
 
-            const newAjaxResult = self.getAjaxResult(result, textStatus, xhr);
-            self.setState({ nextId: newNextId, devs: newDevs, ajaxResult: newAjaxResult });
+            const newAjaxResult = this.getAjaxResult(result, textStatus, xhr);
+            this.setState({ nextId: newNextId, devs: newDevs, ajaxResult: newAjaxResult });
         });
     }
 
     save(name: string, onSuccessfulSave: () => void): void {
-        const self = this;
-        const resetState = self.getConsistentResetState();
-        self.setState(resetState);
+        const resetState = this.getConsistentResetState();
+        this.setState(resetState);
 
         const newDev = { id: this.state.nextId, name: name };
         const createDev = devsWebApi.createDev(newDev);
 
-        createDev.done(function (result, textStatus, xhr) {
-            const newDevs = self.getCopyOfExistingDevs();
+        createDev.done((result, textStatus, xhr) => {
+            const newDevs = this.getCopyOfExistingDevs();
             const isSuccess = xhr.status === 201;
             if (isSuccess) newDevs.push(newDev);
 
-            const nextId = self.determineNextId(newDevs);
-            const newAjaxResult = self.getAjaxResult(result, textStatus, xhr);
-            self.setState({ nextId: nextId, devs: newDevs, ajaxResult: newAjaxResult });
+            const nextId = this.determineNextId(newDevs);
+            const newAjaxResult = this.getAjaxResult(result, textStatus, xhr);
+            this.setState({ nextId: nextId, devs: newDevs, ajaxResult: newAjaxResult });
             onSuccessfulSave();
         });
     }
 
     view(id: number): void {
-        const self = this;
-        const resetState = self.getConsistentResetState();
-        self.setState(resetState);
+        const resetState = this.getConsistentResetState();
+        this.setState(resetState);
 
-        const getDev = self.props.devsWebApi.viewDev(id);
+        const getDev = this.props.devsWebApi.viewDev(id);
 
-        getDev.done(function (result, textStatus, xhr) {
+        getDev.done((result, textStatus, xhr) => {
             let newDevDetails = "";
             if (xhr.status === 200) newDevDetails = result === "" ? "" : JSON.stringify(result);
 
-            const newAjaxResult = self.getAjaxResult(result, textStatus, xhr);
-            self.setState({ devDetails: newDevDetails, ajaxResult: newAjaxResult });
+            const newAjaxResult = this.getAjaxResult(result, textStatus, xhr);
+            this.setState({ devDetails: newDevDetails, ajaxResult: newAjaxResult });
         });
     }
 
     edit(dev: Dev): void {
-        const self = this;
-        const resetState = self.getConsistentResetState();
-        resetState.devs = self.getExistingDevsGivenThisEditedDev(dev);
-        self.setState(resetState);
+        const resetState = this.getConsistentResetState();
+        resetState.devs = this.getExistingDevsGivenThisEditedDev(dev);
+        this.setState(resetState);
 
-        const updateDev = self.props.devsWebApi.editDev(dev);
+        const updateDev = this.props.devsWebApi.editDev(dev);
 
-        updateDev.done(function (result, textStatus, xhr) {
-            const newAjaxResult = self.getAjaxResult(result, textStatus, xhr);
+        updateDev.done((result, textStatus, xhr) => {
+            const newAjaxResult = this.getAjaxResult(result, textStatus, xhr);
 
-            self.setState({ ajaxResult: newAjaxResult });
+            this.setState({ ajaxResult: newAjaxResult });
         });
     }
 
@@ -158,24 +154,23 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
     }
 
     delete(id: number): void {
-        const self = this;
-        const resetState = self.getConsistentResetState();
-        self.setState(resetState);
+        const resetState = this.getConsistentResetState();
+        this.setState(resetState);
 
-        const removeDev = self.props.devsWebApi.deleteDev(id);
+        const removeDev = this.props.devsWebApi.deleteDev(id);
 
-        removeDev.done(function (result, textStatus, xhr) {
+        removeDev.done((result, textStatus, xhr) => {
             let newDevs: Dev[] = [];
             if (xhr.status === 204) {
                 const editedDevs = [];
-                self.state.devs.forEach(d => { if (d.id !== id) editedDevs.push(d) });
+                this.state.devs.forEach(d => { if (d.id !== id) editedDevs.push(d) });
 
                 newDevs = editedDevs;
             }
 
-            const newAjaxResult = self.getAjaxResult(result, textStatus, xhr);
-            const newNextId = self.determineNextId(newDevs);
-            self.setState({ nextId: newNextId, devs: newDevs, ajaxResult: newAjaxResult });
+            const newAjaxResult = this.getAjaxResult(result, textStatus, xhr);
+            const newNextId = this.determineNextId(newDevs);
+            this.setState({ nextId: newNextId, devs: newDevs, ajaxResult: newAjaxResult });
         });
     }
 
