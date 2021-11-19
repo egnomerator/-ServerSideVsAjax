@@ -6,13 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\app\src\components\devs\AjaxResult\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devs\CreateDev\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devs\DevDetails\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devs\DevsEditor\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devs\EditableTr\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devs\TrEditorCell\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devs\EditableTable\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
     <Content Remove="wwwroot\app\src\components\index.tsx" />
   </ItemGroup>
 
@@ -31,14 +31,14 @@
   </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devs\AjaxResult\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devs\CreateDev\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devs\DevDetails\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devs\DevsEditor\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devs\EditableTr\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devs\TrEditorCell\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devs\EditableTable\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
     </ItemGroup>
 
   <Target Name="NpmCI" Inputs="package.json" Outputs="node_modules/.install-stamp">
