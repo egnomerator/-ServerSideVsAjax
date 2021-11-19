@@ -1,6 +1,7 @@
 ﻿import { nanoid } from "nanoid";
 import * as React from "react";
-import { Dev, EditableTr } from "../EditableTr";
+import { EditableTr } from "../EditableTr";
+import { Dev } from "../models/Dev";
 
 interface EditableTableProps {
     devs: Dev[];

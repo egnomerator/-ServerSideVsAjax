@@ -3,7 +3,7 @@ import { AjaxResult } from "../AjaxResult";
 import { CreateDev } from "../CreateDev";
 import { DevDetails } from "../DevDetails";
 import { EditableTable } from "../EditableTable";
-import { Dev } from "../EditableTr";
+import { Dev } from "../models/Dev";
 
 export interface DevsWebApi {
     getDevs(): any;
@@ -196,6 +196,7 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
 
             <p></p>
             <DevDetails details={this.state.devDetails} />
+            <p></p>
             <AjaxResult result={this.state.ajaxResult} />
         </div>
     }

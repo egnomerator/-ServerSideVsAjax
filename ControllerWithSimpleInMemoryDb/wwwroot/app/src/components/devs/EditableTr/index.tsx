@@ -1,10 +1,6 @@
 ﻿import * as React from "react";
 import { TrEditorCell } from "../TrEditorCell";
-
-export interface Dev {
-    id: number;
-    name: string;
-}
+import { Dev } from "../models/Dev";
 
 interface EditableTrProps {
     dev: Dev;
