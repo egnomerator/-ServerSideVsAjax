@@ -8,37 +8,34 @@ import { getConsistentResetState } from "./tasks/getConsistentResetState";
 import { viewDev } from "./activities/viewDev";
 import { DevsEditorState } from "./state";
 
-function getConsistentDevsEditorResetState(devsEditor: DevsEditor): DevsEditorState {
-    return getConsistentResetState(devsEditor);
-}
+export class Workflows {
+    constructor(devsEditor: DevsEditor) {
+        this.devsEditor = devsEditor;
+    }
 
-function refreshDevsTable(devsEditor: DevsEditor) {
-    refreshTable(devsEditor);
-}
+    devsEditor: DevsEditor;
 
-function save(name: string, onSuccessfulSave: () => void, devsEditor: DevsEditor): void {
-    saveDev(name, onSuccessfulSave, devsEditor);
-}
+    getConsistentResetState(): DevsEditorState {
+        return getConsistentResetState(this.devsEditor);
+    }
 
-function view(id: number, devsEditor: DevsEditor): void {
-    viewDev(id, devsEditor);
-}
+    refreshTable() {
+        refreshTable(this.devsEditor);
+    }
 
-function edit(dev: Dev, devsEditor: DevsEditor): void {
-    editDev(dev, devsEditor);
-}
+    save(name: string, onSuccessfulSave: () => void): void {
+        saveDev(name, onSuccessfulSave, this.devsEditor);
+    }
 
-function deleteDeveloper(id: number, devsEditor: DevsEditor): void {
-    deleteDev(id, devsEditor);
-}
+    view(id: number): void {
+        viewDev(id, this.devsEditor);
+    }
 
-const Workflows = {
-    getConsistentResetState: function (devsEditor: DevsEditor): DevsEditorState { return getConsistentDevsEditorResetState(devsEditor); },
-    refreshTable: function (devsEditor: DevsEditor) { refreshDevsTable(devsEditor); },
-    save: function (name: string, onSuccessfulSave: () => void, devsEditor: DevsEditor): void { save(name, onSuccessfulSave, devsEditor); },
-    view: function (id: number, devsEditor: DevsEditor): void { view(id, devsEditor); },
-    edit: function (dev: Dev, devsEditor: DevsEditor): void { edit(dev, devsEditor); },
-    delete: function (id: number, devsEditor: DevsEditor): void { deleteDeveloper(id, devsEditor); }
-}
+    edit(dev: Dev): void {
+        editDev(dev, this.devsEditor);
+    }
 
-export default Workflows;
+    delete(id: number): void {
+        deleteDev(id, this.devsEditor);
+    }
+}

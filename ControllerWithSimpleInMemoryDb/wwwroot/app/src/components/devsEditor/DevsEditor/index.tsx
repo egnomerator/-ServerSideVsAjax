@@ -6,7 +6,7 @@ import { EditableTable } from "../EditableTable";
 import { Dev } from "../models/Dev";
 import { DevsEditorProps } from "./props";
 import { DevsEditorState } from "./state";
-import Workflows from "./workflows";
+import { Workflows } from "./workflows";
 
 export class DevsEditor extends React.Component<DevsEditorProps, DevsEditorState> {
     constructor(props: DevsEditorProps) {
@@ -18,17 +18,19 @@ export class DevsEditor extends React.Component<DevsEditorProps, DevsEditorState
         this.edit = this.edit.bind(this);
         this.delete = this.delete.bind(this);
 
-        const initialState = Workflows.getConsistentResetState(this);
+        this.workflows = new Workflows(this);
+        const initialState = this.workflows.getConsistentResetState();
         this.state = initialState;
     }
 
     componentDidMount() { this.refreshTable(); }
 
-    refreshTable() { Workflows.refreshTable(this); }
-    save(name: string, onSuccessfulSave: () => void): void { Workflows.save(name, onSuccessfulSave, this); }
-    view(id: number): void { Workflows.view(id, this); }
-    edit(dev: Dev): void { Workflows.edit(dev, this); }
-    delete(id: number): void { Workflows.delete(id, this); }
+    workflows: Workflows;
+    refreshTable() { this.workflows.refreshTable(); }
+    save(name: string, onSuccessfulSave: () => void): void { this.workflows.save(name, onSuccessfulSave); }
+    view(id: number): void { this.workflows.view(id); }
+    edit(dev: Dev): void { this.workflows.edit(dev); }
+    delete(id: number): void { this.workflows.delete(id); }
 
     render() {
         return <div>
