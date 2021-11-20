@@ -9,8 +9,18 @@
     <Content Remove="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\componentOperations.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\deleteDev.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\editDev.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\refreshTable.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\saveDev.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\determineNextId.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getAjaxResult.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getConsistentResetState.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getCopyOfExistingDevs.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getExistingDevsGivenThisEditedDev.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\viewDev.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\workflows.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
@@ -35,7 +45,26 @@
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\componentOperations.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\refreshTable.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\determineNextId.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getAjaxResult.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\setConsistentResetState.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getCopyOfExistingDevs.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getExistingDevsGivenThisEditedDev.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getConsistentResetState.ts">
+        <SubType>Code</SubType>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\viewDev.ts">
+        <SubType>Code</SubType>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\editDev.ts">
+        <SubType>Code</SubType>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\deleteDev.ts">
+        <SubType>Code</SubType>
+      </TypeScriptCompile>
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\saveDev.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\workflows.ts" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />

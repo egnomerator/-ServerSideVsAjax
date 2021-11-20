@@ -1,5 +1,5 @@
-﻿import { DevsWebApi } from "./DevsWebApi";
+﻿import { DevsWebApi } from "./webApi";
 
-export interface EditableTableProps {
+export interface DevsEditorProps {
     devsWebApi: DevsWebApi;
 }

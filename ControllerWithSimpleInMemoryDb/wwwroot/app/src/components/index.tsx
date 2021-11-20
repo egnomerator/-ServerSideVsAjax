@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { DevsEditor } from "./devsEditor/DevsEditor";
-import { DevsWebApi } from "./devsEditor/DevsEditor/DevsWebApi";
+import { DevsWebApi } from "./devsEditor/DevsEditor/webApi";
 
 function renderDevsEditor(container: Element, devsWebApi: object) {
     const api = devsWebApi as DevsWebApi;

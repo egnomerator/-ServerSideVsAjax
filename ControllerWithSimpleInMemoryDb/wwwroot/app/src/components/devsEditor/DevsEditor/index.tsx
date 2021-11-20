@@ -4,12 +4,12 @@ import { CreateDev } from "../CreateDev";
 import { DevDetails } from "../DevDetails";
 import { EditableTable } from "../EditableTable";
 import { Dev } from "../models/Dev";
-import { EditableTableState } from "./state";
-import { EditableTableProps } from "./props";
-import ComponentOperations from "./componentOperations";
+import { DevsEditorProps } from "./props";
+import { DevsEditorState } from "./state";
+import Workflows from "./workflows";
 
-export class DevsEditor extends React.Component<EditableTableProps, EditableTableState> {
-    constructor(props: EditableTableProps) {
+export class DevsEditor extends React.Component<DevsEditorProps, DevsEditorState> {
+    constructor(props: DevsEditorProps) {
         super(props);
 
         this.refreshTable = this.refreshTable.bind(this);
@@ -18,17 +18,17 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
         this.edit = this.edit.bind(this);
         this.delete = this.delete.bind(this);
 
-        const initialState = ComponentOperations.getConsistentResetState(this);
+        const initialState = Workflows.getConsistentResetState(this);
         this.state = initialState;
     }
 
     componentDidMount() { this.refreshTable(); }
 
-    refreshTable() { ComponentOperations.refreshTable(this); }
-    save(name: string, onSuccessfulSave: () => void): void { ComponentOperations.save(name, onSuccessfulSave, this); }
-    view(id: number): void { ComponentOperations.view(id, this); }
-    edit(dev: Dev): void { ComponentOperations.edit(dev, this); }
-    delete(id: number): void { ComponentOperations.delete(id, this); }
+    refreshTable() { Workflows.refreshTable(this); }
+    save(name: string, onSuccessfulSave: () => void): void { Workflows.save(name, onSuccessfulSave, this); }
+    view(id: number): void { Workflows.view(id, this); }
+    edit(dev: Dev): void { Workflows.edit(dev, this); }
+    delete(id: number): void { Workflows.delete(id, this); }
 
     render() {
         return <div>
