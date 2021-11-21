@@ -1,9 +1,9 @@
 ﻿import { Dev } from "../models/Dev";
 
 export interface DevsWebApi {
-    getDevs(): any;
-    createDev(dev: Dev): any;
-    viewDev(id: number): any;
-    editDev(dev: Dev): any;
-    deleteDev(id: number): any;
+    getDevs(): JQueryXHR;
+    createDev(dev: Dev): JQueryXHR;
+    viewDev(id: number): JQueryXHR;
+    editDev(dev: Dev): JQueryXHR;
+    deleteDev(id: number): JQueryXHR;
 }
