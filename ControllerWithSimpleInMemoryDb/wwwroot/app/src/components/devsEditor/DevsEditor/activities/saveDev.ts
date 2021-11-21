@@ -8,7 +8,7 @@ export function saveDev(name: string, onSuccessfulSave: () => void, devsEditor: 
     setConsistentResetState(devsEditor);
 
     const newDev = { id: devsEditor.state.nextId, name: name };
-    const createDev = devsWebApi.createDev(newDev);
+    const createDev = devsEditor.props.devsWebApi.createDev(newDev);
 
     createDev.done((result, textStatus, xhr) => {
         const newDevs = getCopyOfExistingDevs(devsEditor);

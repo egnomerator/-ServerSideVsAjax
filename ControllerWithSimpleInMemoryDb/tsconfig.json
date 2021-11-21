@@ -9,5 +9,6 @@
     "removeComments": false,
     "module": "ES2015",
     "moduleResolution": "Node"
-  }
+  },
+  "exclude": [ "wwwroot/app/dist/**/*" ]
 }

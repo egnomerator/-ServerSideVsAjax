@@ -8,11 +8,12 @@
     "test": "npm run typescheck && jest",
     "devw": "npm run tscwatch -- --onSuccess \"webpack --mode=development\"",
     "testw": "npm run tscwatch -- --onSuccess jest",
-    "tscwatch": "./node_modules/.bin/tsc-watch -p ./tsconfig.json",
-    "typescheck": "tsc -p ./tsconfig.json",
-    "typesemit": "tsc -p ./tsconfig.types.json",
-    "tconf": "tsc -p ./tsconfig.json --showConfig",
-    "tconft": "tsc -p ./tsconfig.types.json --showConfig"
+    "tscwatch": "./node_modules/.bin/tsc-watch -p ./tsconfig.bld.json",
+    "typescheck": "tsc -p ./tsconfig.bld.json",
+    "typesemit": "tsc -p ./tsconfig.dts.json",
+    "tsconfide": "tsc -p ./tsconfig.json --showConfig",
+    "tsconfbld": "tsc -p ./tsconfig.bld.json --showConfig",
+    "tsconfdts": "tsc -p ./tsconfig.dts.json --showConfig"
   },
   "browserslist": [
     "defaults"
