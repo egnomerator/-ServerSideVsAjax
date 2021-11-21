@@ -7,14 +7,6 @@ namespace ControllerWithSimpleInMemoryDb.Controllers
 {
     public class DevController : Controller
     {
-        //public static readonly Dictionary<long, Dev> DevDb = new Dictionary<long, Dev> { { 1, new Dev { Id = 1, Name = "Charlie" } } };
-
-        public DevController()
-        {
-            //DevDb = new Dictionary<long, Dev> { { 1, new Dev { Id = 1, Name = "Mac" } } };
-            var p = "pause";
-        }
-
         public IActionResult Devs()
         {
             return View("Index", DevDb.Devs);
