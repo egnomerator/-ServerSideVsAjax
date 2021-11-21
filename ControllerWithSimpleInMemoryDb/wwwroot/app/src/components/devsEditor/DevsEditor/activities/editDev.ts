@@ -16,5 +16,9 @@ export function editDev(dev: Dev, devsEditor: DevsEditor): void {
         const newAjaxResult = getAjaxResult(result, textStatus, xhr);
 
         devsEditor.setState({ ajaxResult: newAjaxResult });
+    }).fail((xhr, textStatus, errorThrown) => {
+        const newAjaxResult = getAjaxResult(errorThrown, textStatus, xhr);
+
+        devsEditor.setState({ ajaxResult: newAjaxResult });
     });
 }

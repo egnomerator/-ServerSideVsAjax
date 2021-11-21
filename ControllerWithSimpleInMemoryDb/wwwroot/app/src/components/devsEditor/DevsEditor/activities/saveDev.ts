@@ -19,5 +19,9 @@ export function saveDev(name: string, onSuccessfulSave: () => void, devsEditor: 
         const newAjaxResult = getAjaxResult(result, textStatus, xhr);
         devsEditor.setState({ nextId: nextId, devs: newDevs, ajaxResult: newAjaxResult });
         onSuccessfulSave();
+    }).fail((xhr, textStatus, errorThrown) => {
+        const newAjaxResult = getAjaxResult(errorThrown, textStatus, xhr);
+
+        devsEditor.setState({ ajaxResult: newAjaxResult });
     });
 }

@@ -16,5 +16,9 @@ export function refreshTable(devsEditor: DevsEditor) {
 
         const newAjaxResult = getAjaxResult(result, textStatus, xhr);
         devsEditor.setState({ nextId: newNextId, devs: newDevs, ajaxResult: newAjaxResult });
+    }).fail((xhr, textStatus, errorThrown) => {
+        const newAjaxResult = getAjaxResult(errorThrown, textStatus, xhr);
+
+        devsEditor.setState({ ajaxResult: newAjaxResult });
     });
 }

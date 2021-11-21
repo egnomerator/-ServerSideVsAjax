@@ -13,5 +13,9 @@ export function viewDev(id: number, devsEditor: DevsEditor): void {
 
         const newAjaxResult = getAjaxResult(result, textStatus, xhr);
         devsEditor.setState({ devDetails: newDevDetails, ajaxResult: newAjaxResult });
+    }).fail((xhr, textStatus, errorThrown) => {
+        const newAjaxResult = getAjaxResult(errorThrown, textStatus, xhr);
+
+        devsEditor.setState({ ajaxResult: newAjaxResult });
     });
 }

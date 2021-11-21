@@ -21,5 +21,9 @@ export function deleteDev(id: number, devsEditor: DevsEditor): void {
         const newAjaxResult = getAjaxResult(result, textStatus, xhr);
         const newNextId = determineNextId(newDevs);
         devsEditor.setState({ nextId: newNextId, devs: newDevs, ajaxResult: newAjaxResult });
+    }).fail((xhr, textStatus, errorThrown) => {
+        const newAjaxResult = getAjaxResult(errorThrown, textStatus, xhr);
+
+        devsEditor.setState({ ajaxResult: newAjaxResult });
     });
 }
