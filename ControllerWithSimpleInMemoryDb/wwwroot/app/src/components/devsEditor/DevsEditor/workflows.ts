@@ -23,8 +23,8 @@ export class Workflows {
         refreshTable(this.devsEditor);
     }
 
-    save(name: string, onSuccessfulSave: () => void): void {
-        saveDev(name, onSuccessfulSave, this.devsEditor);
+    save(firstName: string, lastName: string, onSuccessfulSave: () => void): void {
+        saveDev(firstName, lastName, onSuccessfulSave, this.devsEditor);
     }
 
     view(id: number): void {

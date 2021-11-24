@@ -21,8 +21,12 @@
                 <label for="newDevId">Next Id</label>
             </div>
             <div>
-                <input name="name" id="newDevName" type="text" />
-                <label for="newDevName">Name</label>
+                <input name="firstName" id="newDevFirstName" type="text" />
+                <label for="newDevName">First Name</label>
+            </div>
+            <div>
+                <input name="lastName" id="newDevLastName" type="text" />
+                <label for="newDevName">Last Name</label>
             </div>
             <input type="submit" value="Save Dev" />
         </form>
@@ -52,7 +56,7 @@
                         <tr id="@devRowId">
                             <td>@dev.Value.Id</td>
                             <td>
-                                <input type="text" value="@dev.Value.Name" onchange="nonAjaxDevs.devEdited(this)" />
+                                <input type="text" value="@dev.Value.FirstName" onchange="nonAjaxDevs.devEdited(this)" />
                             </td>
                             <td>
                                 <form asp-controller="Dev" asp-action="Dev" method="get" style="display:inline;">
@@ -61,7 +65,7 @@
                                 </form>
                                 <form asp-controller="Dev" asp-action="Edit" method="post" style="display:inline;">
                                     <input type="hidden" name="id" value="@dev.Value.Id" />
-                                    <input type="hidden" name="name" value="@dev.Value.Name" />
+                                    <input type="hidden" name="name" value="@dev.Value.FirstName" />
                                     <input type="submit" value="Edit" />
                                 </form>
                                 <form asp-controller="Dev" asp-action="Delete" method="post" style="display:inline;">
@@ -92,8 +96,12 @@
             <label for="ajaxNewDevId">Next Id</label>
         </div>
         <div>
-            <input name="name" id="ajaxNewDevName" type="text" />
-            <label for="ajaxNewDevName">Name</label>
+            <input name="firstName" id="ajaxNewDevFirstName" type="text" />
+            <label for="ajaxNewDevName">First Name</label>
+        </div>
+        <div>
+            <input name="lastName" id="ajaxNewDevLastName" type="text" />
+            <label for="newDevName">Last Name</label>
         </div>
         <button id="devSaveId" onclick="ajaxDevs.createDev()">Save Dev</button>
 

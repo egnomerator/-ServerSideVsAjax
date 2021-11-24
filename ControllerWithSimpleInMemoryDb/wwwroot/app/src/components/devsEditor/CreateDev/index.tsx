@@ -7,11 +7,13 @@ export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
         super(props);
 
         this.handleSave = this.handleSave.bind(this);
-        this.clearDevNameFieldOnSaveSuccessCallback = this.clearDevNameFieldOnSaveSuccessCallback.bind(this);
-        this.handleDevNameChange = this.handleDevNameChange.bind(this);
+        this.clearDevNameFieldsOnSaveSuccessCallback = this.clearDevNameFieldsOnSaveSuccessCallback.bind(this);
+        this.handleDevFirstNameChange = this.handleDevFirstNameChange.bind(this);
+        this.handleDevLastNameChange = this.handleDevLastNameChange.bind(this);
 
         this.state = {
-            devName: ""
+            firstName: "",
+            lastName: ""
         }
     }
 
@@ -20,15 +22,19 @@ export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
     }
 
     handleSave() {
-        this.props.save(this.state.devName, this.clearDevNameFieldOnSaveSuccessCallback);
+        this.props.save(this.state.firstName, this.state.lastName, this.clearDevNameFieldsOnSaveSuccessCallback);
     }
 
-    clearDevNameFieldOnSaveSuccessCallback() {
-        this.setState({ devName: "" });
+    clearDevNameFieldsOnSaveSuccessCallback() {
+        this.setState({ firstName: "", lastName: "" });
     }
 
-    handleDevNameChange(event) {
-        this.setState({ devName: event.target.value });
+    handleDevFirstNameChange(event) {
+        this.setState({ firstName: event.target.value });
+    }
+
+    handleDevLastNameChange(event) {
+        this.setState({ lastName: event.target.value });
     }
 
     render() {
@@ -39,9 +45,14 @@ export class CreateDev extends React.Component<CreateDevProps, CreateDevState> {
                 <label htmlFor="reactNewDevId">Next Id</label>
             </div>
             <div>
-                <input id="reactNewDevName" type="text" value={this.state.devName} onChange={this.handleDevNameChange} />
+                <input id="reactNewDevFirstName" type="text" value={this.state.firstName} onChange={this.handleDevFirstNameChange} />
                 {" "}
-                <label htmlFor="reactNewDevName">Name</label>
+                <label htmlFor="reactNewDevFirstName">First Name</label>
+            </div>
+            <div>
+                <input id="reactNewDevLastName" type="text" value={this.state.lastName} onChange={this.handleDevLastNameChange} />
+                {" "}
+                <label htmlFor="reactNewDevLastName">Last Name</label>
             </div>
             <button onClick={this.handleSave}>Save Dev</button>
         </div>

@@ -1,3 +1,4 @@
 ﻿export interface CreateDevState {
-    devName: string;
+    firstName: string;
+    lastName: string;
 }

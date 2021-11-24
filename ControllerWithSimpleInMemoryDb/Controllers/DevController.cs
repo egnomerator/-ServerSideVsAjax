@@ -20,17 +20,17 @@ namespace ControllerWithSimpleInMemoryDb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(long id, string name)
+        public IActionResult Create(long id, string firstName, string lastName)
         {
-            DevDb.Devs.Add(id,new Dev { Id = id, Name = name ?? string.Empty});
+            DevDb.Devs.Add(id,new Dev { Id = id, FirstName = firstName ?? string.Empty, LastName = lastName ?? string.Empty});
 
             return RedirectToAction("Devs");
         }
 
         [HttpPost]
-        public IActionResult Edit(long id, string name)
+        public IActionResult Edit(long id, string firstName)
         {
-            DevDb.Devs[id].Name = name;
+            DevDb.Devs[id].FirstName = firstName;
 
             return RedirectToAction("Devs");
         }

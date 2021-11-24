@@ -1,5 +1,5 @@
 ﻿export interface CreateDevProps {
     nextId: number;
     nextIdIsKnown: boolean;
-    save(name: string, onSuccessfulSave: () => void): void;
+    save(firstName: string, lastName: string, onSuccessfulSave: () => void): void;
 }

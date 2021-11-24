@@ -43,7 +43,7 @@ namespace ControllerWithSimpleInMemoryDb.Controllers
         [HttpPut]
         public IActionResult Put(Dev dev)
         {
-            DevDb.Devs[dev.Id].Name = dev.Name;
+            DevDb.Devs[dev.Id].FirstName = dev.FirstName;
 
             return NoContent();
         }

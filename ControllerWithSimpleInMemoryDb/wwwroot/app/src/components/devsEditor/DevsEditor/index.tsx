@@ -27,7 +27,7 @@ export class DevsEditor extends React.Component<DevsEditorProps, DevsEditorState
 
     workflows: Workflows;
     refreshTable() { this.workflows.refreshTable(); }
-    save(name: string, onSuccessfulSave: () => void): void { this.workflows.save(name, onSuccessfulSave); }
+    save(firstName: string, lastName: string, onSuccessfulSave: () => void): void { this.workflows.save(firstName, lastName, onSuccessfulSave); }
     view(id: number): void { this.workflows.view(id); }
     edit(dev: Dev): void { this.workflows.edit(dev); }
     delete(id: number): void { this.workflows.delete(id); }

@@ -21,7 +21,8 @@ export class EditableTr extends React.Component<EditableTrProps, EditableTrState
     handleDevNameChange(event) {
         const newDev: Dev = {
             id: this.state.dev.id,
-            name: event.target.value
+            firstName: event.target.value,
+            lastName: this.props.dev.lastName
         }
         this.setState({ dev: newDev });
     }
@@ -42,7 +43,7 @@ export class EditableTr extends React.Component<EditableTrProps, EditableTrState
             <td>
                 <input
                     type="text"
-                    value={this.state.dev.name}
+                    value={this.state.dev.firstName}
                     onChange={this.handleDevNameChange}
                 />
             </td>

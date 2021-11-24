@@ -4,10 +4,10 @@ import { determineNextId } from "../tasks/determineNextId";
 import { getAjaxResult } from "../tasks/getAjaxResult";
 import { getCopyOfExistingDevs } from "../tasks/getCopyOfExistingDevs";
 
-export function saveDev(name: string, onSuccessfulSave: () => void, devsEditor: DevsEditor): void {
+export function saveDev(firstName: string, lastName: string, onSuccessfulSave: () => void, devsEditor: DevsEditor): void {
     setConsistentResetState(devsEditor);
 
-    const newDev = { id: devsEditor.state.nextId, name: name };
+    const newDev = { id: devsEditor.state.nextId, firstName: firstName, lastName: lastName };
     const createDev = devsEditor.props.devsWebApi.createDev(newDev);
 
     createDev.done((result, textStatus, xhr) => {

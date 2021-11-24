@@ -62,7 +62,8 @@ var ajaxDevs = (function () {
 
         var newDev = {
             id: parseInt($("#ajaxNewDevId").val()),
-            name: $("#ajaxNewDevName").val()
+            firstName: $("#ajaxNewDevFirstName").val(),
+            lastName: $("#ajaxNewDevLastName").val()
         }
 
         var createDev = devsWebApi.createDev(newDev);
@@ -71,7 +72,7 @@ var ajaxDevs = (function () {
             displayAjaxResult(result, textStatus, xhr);
             if (xhr.status === 201) addDevElementToTable(newDev);
             updateAjaxNextId();
-            clearNewDevNameField();
+            clearNewDevNameFields();
         });
     }
 
@@ -148,9 +149,11 @@ var ajaxDevs = (function () {
         nextIdField.val(nextId);
     }
 
-    function clearNewDevNameField() {
-        var newNameField = $("#ajaxNewDevName");
-        newNameField.val("");
+    function clearNewDevNameFields() {
+        var newFirstNameField = $("#ajaxNewDevFirstName");
+        var newLastNameField = $("#ajaxNewDevLastName");
+        newFirstNameField.val("");
+        newLastNameField.val("");
     }
 
     function getHighestDevId() {
@@ -179,7 +182,7 @@ var ajaxDevs = (function () {
 
         return {
             id: id,
-            name: devName
+            firstName: devName
         };
     }
 
@@ -201,7 +204,7 @@ var ajaxDevs = (function () {
                 .attr("id", "ajaxDevRowId" + dev.id)
                 .append($("<td>").text(dev.id))
                 .append($("<td>")
-                    .append($("<input>").attr("value", dev.name)))
+                    .append($("<input>").attr("value", dev.firstName)))
                 .append($("<td>")
                     .append($("<button>")
                         .attr("id", "ajaxDevViewId" + dev.id)
