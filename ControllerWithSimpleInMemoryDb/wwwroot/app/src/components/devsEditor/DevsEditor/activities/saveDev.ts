@@ -2,7 +2,7 @@
 import { setConsistentResetState } from "./setConsistentResetState";
 import { determineNextId } from "../tasks/determineNextId";
 import { getAjaxResult } from "../tasks/getAjaxResult";
-import { getCopyOfExistingDevs } from "../tasks/getCopyOfExistingDevs";
+import { getCopyOfDevs } from "../tasks/getCopyOfDevs";
 
 export function saveDev(firstName: string, lastName: string, onSuccessfulSave: () => void, devsEditor: DevsEditor): void {
     setConsistentResetState(devsEditor);
@@ -11,7 +11,7 @@ export function saveDev(firstName: string, lastName: string, onSuccessfulSave: (
     const createDev = devsEditor.props.devsWebApi.createDev(newDev);
 
     createDev.done((result, textStatus, xhr) => {
-        const newDevs = getCopyOfExistingDevs(devsEditor);
+        const newDevs = getCopyOfDevs(devsEditor.state.devs);
         const isSuccess = xhr.status === 201;
         if (isSuccess) newDevs.push(newDev);
 

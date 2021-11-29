@@ -1,6 +1,6 @@
 ﻿import { DevsEditor } from "..";
 import { DevsEditorState } from "../state";
-import { determineNextId } from "./determineNextId";
+import { determineNextId } from "../tasks/determineNextId";
 
 export function getConsistentResetState(devsEditor: DevsEditor): DevsEditorState {
     return {

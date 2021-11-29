@@ -4,7 +4,7 @@ import { deleteDev } from "./activities/deleteDev";
 import { editDev } from "./activities/editDev";
 import { refreshTable } from "./activities/refreshTable";
 import { saveDev } from "./activities/saveDev";
-import { getConsistentResetState } from "./tasks/getConsistentResetState";
+import { getConsistentResetState } from "./activities/getConsistentResetState";
 import { viewDev } from "./activities/viewDev";
 import { DevsEditorState } from "./state";
 

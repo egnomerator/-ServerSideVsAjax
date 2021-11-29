@@ -1,12 +1,8 @@
 ﻿export function getAjaxResult(result, textStatus, xhr) {
-    const r = result === undefined ? "" : JSON.stringify(result);
-    const c = JSON.stringify(textStatus);
-    const x = JSON.stringify(xhr);
-
     const fullResult = {
-        content: r,
-        textStatus: c,
-        jqXhr: x
+        content: result === undefined ? "" : JSON.stringify(result),
+        textStatus: JSON.stringify(textStatus),
+        jqXhr: JSON.stringify(xhr)
     };
 
     return JSON.stringify(fullResult);

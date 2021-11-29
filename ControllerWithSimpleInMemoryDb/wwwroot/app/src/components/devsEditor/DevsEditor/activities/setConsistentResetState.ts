@@ -1,7 +1,7 @@
 ﻿import { DevsEditor } from "..";
 import { Dev } from "../../models/Dev";
 import { determineNextId } from "../tasks/determineNextId";
-import { getConsistentResetState } from "../tasks/getConsistentResetState";
+import { getConsistentResetState } from "./getConsistentResetState";
 
 export function setConsistentResetState(devsEditor: DevsEditor, devsToUse?: Dev[]): void {
     const resetState = getConsistentResetState(devsEditor);
