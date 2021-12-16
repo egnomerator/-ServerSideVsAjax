@@ -1,18 +1,22 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { PubSub } from "../pubSub";
 import { DevsEditor } from "./devsEditor/DevsEditor";
 import { DevsWebApi } from "./devsEditor/DevsEditor/webApi";
 
-function renderDevsEditor(container: Element, devsWebApi: object) {
-    const api = devsWebApi as DevsWebApi;
+function renderDevsEditor(container: Element, api: DevsWebApi, pubSub: PubSub) {
     ReactDOM.render(
-        <DevsEditor devsWebApi={api} />,
+        <React.StrictMode>
+            <DevsEditor devsWebApi={api} pubSub={pubSub} />
+        </React.StrictMode>,
         container
     )
 }
 
 const Components = {
-    renderDevsEditor: function (container: Element, devsWebApi: object) { renderDevsEditor(container, devsWebApi); }
+    renderDevsEditor: function (container: Element, devsWebApi: object, pubSub: object) {
+        renderDevsEditor(container, devsWebApi as DevsWebApi, pubSub as PubSub);
+    }
 }
 
 export default Components;

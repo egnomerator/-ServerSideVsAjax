@@ -5,7 +5,7 @@
 
     function renderReactDevs() {
         var container = $("#reactTableContainer")[0];
-        ClientApp.Components.renderDevsEditor(container, devsWebApi);
+        ClientApp.Components.renderDevsEditor(container, devsWebApi, pubSub);
     }
 
     return api;
@@ -31,12 +31,17 @@ var nonAjaxDevs = (function () {
 
 var ajaxDevs = (function () {
     var api = {
+        subscribeToReactTableEdits: function () { subscribeToReactTableEdits(); },
         getDevs: function () { getDevs(); },
         refreshDevs: function () { refreshDevs(); },
         createDev: function () { createDev(); },
         viewDev: function (id) { viewDev(id); },
         editDev: function (id) { editDev(id); },
         deleteDev: function (id) { deleteDev(id); }
+    }
+
+    function subscribeToReactTableEdits() {
+        pubSub.subscribe(pubSub.eventRegister.devEditedByReact, refreshDevs);
     }
 
     function getDevs() {
@@ -70,7 +75,10 @@ var ajaxDevs = (function () {
 
         createDev.done(function (result, textStatus, xhr) {
             displayAjaxResult(result, textStatus, xhr);
-            if (xhr.status === 201) addDevElementToTable(newDev);
+            if (xhr.status === 201) {
+                addDevElementToTable(newDev);
+                pubSub.publish(pubSub.eventRegister.devEditedByJqueryTable);
+            }
             updateAjaxNextId();
             clearNewDevNameFields();
         });
@@ -94,6 +102,7 @@ var ajaxDevs = (function () {
         var updateDev = devsWebApi.editDev(devToEdit);
 
         updateDev.done(function (result, textStatus, xhr) {
+            if (xhr.status === 204) pubSub.publish(pubSub.eventRegister.devEditedByJqueryTable);
             displayAjaxResult(result, textStatus, xhr);
         });
     }
@@ -105,7 +114,10 @@ var ajaxDevs = (function () {
 
         removeDev.done(function (result, textStatus, xhr) {
             displayAjaxResult(result, textStatus, xhr);
-            if (xhr.status === 204) removeDevElement(id);
+            if (xhr.status === 204) {
+                removeDevElement(id);
+                pubSub.publish(pubSub.eventRegister.devEditedByJqueryTable);
+            }
             updateAjaxNextId();
             displayNoDevsMessage();
         });

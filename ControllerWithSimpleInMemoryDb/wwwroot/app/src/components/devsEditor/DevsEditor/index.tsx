@@ -9,8 +9,12 @@ import { DevsEditorState } from "./state";
 import { Workflows } from "./workflows";
 
 export class DevsEditor extends React.Component<DevsEditorProps, DevsEditorState> {
+    unSubscribers = [];
+
     constructor(props: DevsEditorProps) {
         super(props);
+
+        this.unSubscribers = [];
 
         this.refreshTable = this.refreshTable.bind(this);
         this.save = this.save.bind(this);
@@ -23,7 +27,18 @@ export class DevsEditor extends React.Component<DevsEditorProps, DevsEditorState
         this.state = initialState;
     }
 
-    componentDidMount() { this.refreshTable(); }
+    componentDidMount() {
+        const subscribe = this.props.pubSub.subscribe;
+        const devEditedByJqueryTableEvent = this.props.pubSub.eventRegister.devEditedByJqueryTable;
+
+        const unSubscriber = subscribe(devEditedByJqueryTableEvent, this.refreshTable);
+        this.unSubscribers.push(unSubscriber);
+        this.refreshTable();
+    }
+
+    componentWillUnmount() {
+        this.unSubscribers.map((unSubscribe, i) => { unSubscribe();});
+    }
 
     workflows: Workflows;
     refreshTable() { this.workflows.refreshTable(); }

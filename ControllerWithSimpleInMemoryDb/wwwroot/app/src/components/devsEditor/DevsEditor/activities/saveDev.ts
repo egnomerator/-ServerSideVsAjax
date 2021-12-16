@@ -3,6 +3,7 @@ import { setConsistentResetState } from "./setConsistentResetState";
 import { determineNextId } from "../tasks/determineNextId";
 import { getAjaxResult } from "../tasks/getAjaxResult";
 import { getCopyOfDevs } from "../tasks/getCopyOfDevs";
+import { publishTableEdited } from "../tasks/publishTableEdited";
 
 export function saveDev(firstName: string, lastName: string, onSuccessfulSave: () => void, devsEditor: DevsEditor): void {
     setConsistentResetState(devsEditor);
@@ -18,6 +19,8 @@ export function saveDev(firstName: string, lastName: string, onSuccessfulSave: (
         const nextId = determineNextId(newDevs);
         const newAjaxResult = getAjaxResult(result, textStatus, xhr);
         devsEditor.setState({ nextId: nextId, devs: newDevs, ajaxResult: newAjaxResult });
+
+        if (isSuccess) publishTableEdited(devsEditor);
         onSuccessfulSave();
     }).fail((xhr, textStatus, errorThrown) => {
         const newAjaxResult = getAjaxResult(errorThrown, textStatus, xhr);

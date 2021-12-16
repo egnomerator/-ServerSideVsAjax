@@ -19,6 +19,7 @@
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getCopyOfDevs.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\viewDev.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\publishTableEdited.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\updateMatchingDev.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\workflows.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
@@ -65,6 +66,7 @@
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getAjaxResult.ts" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\setConsistentResetState.ts" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getCopyOfDevs.ts" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\publishTableEdited.ts" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\updateMatchingDev.ts" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\getConsistentResetState.ts">
         <SubType>Code</SubType>
