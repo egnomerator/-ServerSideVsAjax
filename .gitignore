@@ -362,5 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# Visual Studio Code config
+.vscode
+
 # library dist
 **/wwwroot/app/dist/
