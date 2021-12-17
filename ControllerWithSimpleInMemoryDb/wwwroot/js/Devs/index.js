@@ -184,8 +184,8 @@ var ajaxDevs = (function () {
     }
 
     function removeDevElement(id) {
-        var devRowId = "ajaxDevRowId" + id;
-        var rowToRemove = document.getElementById(devRowId);
+        var devRowId = "#ajaxDevRowId" + id;
+        var rowToRemove = $(devRowId);
         if (rowToRemove !== null) rowToRemove.remove();
     }
 

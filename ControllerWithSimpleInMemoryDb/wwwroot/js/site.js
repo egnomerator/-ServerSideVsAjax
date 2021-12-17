@@ -1,4 +1,18 @@
-﻿var pubSub = (function () {
+﻿function ajaxCall(method, resource, payload) {
+    var ajaxConfig = {
+        url: resource,
+        type: method
+    };
+
+    if (payload !== undefined && payload !== null) {
+        ajaxConfig.data = JSON.stringify(payload);
+        ajaxConfig.contentType = "application/json";
+    }
+
+    return $.ajax(ajaxConfig);
+}
+
+var pubSub = (function () {
     var eventRegister = {
         devEditedByJqueryTable: "DEV_EDITED_JQUERY_TABLE",
         devEditedByReact: "DEV_EDITED_REACT_TABLE"
@@ -6,7 +20,7 @@
 
     var messageBroker = {
         findEvent: function (eventName) {
-            return this.events.filter(e => { return e.eventName === eventName })[0];
+            return this.events.filter(function(e) { return e.eventName === eventName })[0];
         },
         events: [
             {
@@ -28,7 +42,7 @@
             event.eventHandlers.push(eventHandler);
 
             var unsubscriber = function () {
-                event.eventHandlers = event.eventHandlers.filter((h) => {
+                event.eventHandlers = event.eventHandlers.filter(function(h) {
                     return h.id !== eventHandler.id;
                 });
             }
@@ -36,28 +50,13 @@
         },
         publish: function (eventName, data) {
             var event = this.findEvent(eventName);
-            event.eventHandlers.map((handler, i) => { handler.callBack(data); });
+            event.eventHandlers.map(function(handler, i) { handler.callBack(data); });
         }
     };
 
     return {
         eventRegister: eventRegister,
         subscribe: function (eventName, subscriber) { return messageBroker.subscribe(eventName, subscriber); },
-        publish: function (eventName, data) { messageBroker.publish(eventName, data); },
-        events: function () { return messageBroker.events;}
+        publish: function (eventName, data) { messageBroker.publish(eventName, data); }
     }
 })();
-
-function ajaxCall(method, resource, payload) {
-    var ajaxConfig = {
-        url: resource,
-        type: method
-    };
-
-    if (payload !== undefined && payload !== null) {
-        ajaxConfig.data = JSON.stringify(payload);
-        ajaxConfig.contentType = "application/json";
-    }
-
-    return $.ajax(ajaxConfig);
-}
