@@ -22,6 +22,7 @@
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\publishTableEdited.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\updateMatchingDev.ts" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\workflows.ts" />
+    <Content Remove="wwwroot\app\src\components\devsEditor\EditableTable\index.test.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
@@ -83,6 +84,9 @@
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\saveDev.ts" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\workflows.ts" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
+      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTable\index.test.tsx">
+        <SubType>Code</SubType>
+      </TypeScriptCompile>
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\index.tsx" />

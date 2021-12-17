@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditableTable should render empty 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <td>
+        Id
+      </td>
+      <td>
+        Name
+      </td>
+      <td>
+        Action
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        className="text-center"
+        colSpan={3}
+      >
+        There are no devs.
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`EditableTable should render with 1 dev 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <td>
+        Id
+      </td>
+      <td>
+        Name
+      </td>
+      <td>
+        Action
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        1
+      </td>
+      <td>
+        <input
+          onChange={[Function]}
+          type="text"
+          value="first1"
+        />
+      </td>
+      <td>
+        <button
+          onClick={[Function]}
+        >
+          View
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Edit
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`EditableTable should render with 2 devs 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <td>
+        Id
+      </td>
+      <td>
+        Name
+      </td>
+      <td>
+        Action
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        1
+      </td>
+      <td>
+        <input
+          onChange={[Function]}
+          type="text"
+          value="first1"
+        />
+      </td>
+      <td>
+        <button
+          onClick={[Function]}
+        >
+          View
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Edit
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        2
+      </td>
+      <td>
+        <input
+          onChange={[Function]}
+          type="text"
+          value="first2"
+        />
+      </td>
+      <td>
+        <button
+          onClick={[Function]}
+        >
+          View
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Edit
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`EditableTable should render with 3 devs 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <td>
+        Id
+      </td>
+      <td>
+        Name
+      </td>
+      <td>
+        Action
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        1
+      </td>
+      <td>
+        <input
+          onChange={[Function]}
+          type="text"
+          value="first1"
+        />
+      </td>
+      <td>
+        <button
+          onClick={[Function]}
+        >
+          View
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Edit
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        2
+      </td>
+      <td>
+        <input
+          onChange={[Function]}
+          type="text"
+          value="first2"
+        />
+      </td>
+      <td>
+        <button
+          onClick={[Function]}
+        >
+          View
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Edit
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        3
+      </td>
+      <td>
+        <input
+          onChange={[Function]}
+          type="text"
+          value="first3"
+        />
+      </td>
+      <td>
+        <button
+          onClick={[Function]}
+        >
+          View
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Edit
+        </button>
+         
+        <button
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
