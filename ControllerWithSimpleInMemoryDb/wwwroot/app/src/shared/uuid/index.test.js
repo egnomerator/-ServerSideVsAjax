@@ -1,10 +1,6 @@
-﻿import crypto from "crypto";
-import CreateUUID from ".";
+﻿import CreateUUID from ".";
 
 describe("UUID", () => {
-
-    global.crypto = crypto;
-
     it("should create", () => {
         const uuid1 = CreateUUID();
         const uuid2 = CreateUUID();
@@ -21,7 +17,4 @@ describe("UUID", () => {
 
         expect(uuid1).not.toEqual(uuid2);
     });
-
-    delete global[crypto];
-
 });
