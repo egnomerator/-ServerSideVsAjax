@@ -10,5 +10,5 @@
     "module": "ES2015",
     "moduleResolution": "Node"
   },
-  "exclude": [ "wwwroot/app/dist/**/*" ]
+  "exclude": [ "wwwroot/app/dist/**/*", "bin/**/*" ]
 }

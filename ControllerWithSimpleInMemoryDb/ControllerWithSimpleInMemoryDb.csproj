@@ -1,107 +1,60 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.1</TargetFramework>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	</PropertyGroup>
+	<ItemGroup>
+		<TypeScriptCompile Remove="wwwroot\app\src\**" />
+		<TypeScriptCompile Remove="node_modules\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\app\src\**" />
+		<None Include="wwwroot\app\src\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\deleteDev.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\editDev.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\refreshTable.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\saveDev.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\determineNextId.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getAjaxResult.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getConsistentResetState.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getCopyOfDevs.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\activities\viewDev.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\publishTableEdited.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\updateMatchingDev.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\workflows.ts" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\EditableTable\index.test.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\index.tsx" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.5.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Update="package-lock.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="package.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="tsconfig.bld.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="tsconfig.dts.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="tsconfig.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\app\dist\bundle\bundle.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\app\dist\bundle\vendors.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-    <ItemGroup>
-    <Content Update="package-lock.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="package.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="tsconfig.bld.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="tsconfig.dts.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="tsconfig.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\app\dist\bundle\bundle.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\app\dist\bundle\vendors.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<Target Name="NpmCI" Inputs="package.json" Outputs="node_modules/.install-stamp">
+		<Exec Command="npm ci" />
+		<!-- Write the stamp file, so incremental builds work -->
+		<Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
+	</Target>
 
-    <ItemGroup>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\refreshTable.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\determineNextId.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getAjaxResult.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\setConsistentResetState.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\getCopyOfDevs.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\publishTableEdited.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\tasks\updateMatchingDev.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\getConsistentResetState.ts">
-        <SubType>Code</SubType>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\viewDev.ts">
-        <SubType>Code</SubType>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\editDev.ts">
-        <SubType>Code</SubType>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\deleteDev.ts">
-        <SubType>Code</SubType>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\activities\saveDev.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\workflows.ts" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTable\index.test.tsx">
-        <SubType>Code</SubType>
-      </TypeScriptCompile>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
-    </ItemGroup>
-
-  <Target Name="NpmCI" Inputs="package.json" Outputs="node_modules/.install-stamp">
-    <Exec Command="npm ci" />
-    <!-- Write the stamp file, so incremental builds work -->
-    <Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
-  </Target>
-
-  <Target Name="NpmRunBuild" DependsOnTargets="NpmCI" BeforeTargets="BeforeBuild">
-    <Exec Command="npm run dev" Condition="'$(Configuration)'!='Release'" />
-    <Exec Command="npm run prod" Condition="'$(Configuration)'=='Release'" />
-  </Target>
+	<Target Name="NpmRunBuild" DependsOnTargets="NpmCI" BeforeTargets="BeforeBuild">
+		<Exec Command="npm run dev" Condition="'$(Configuration)'!='Release'" />
+		<Exec Command="npm run prod" Condition="'$(Configuration)'=='Release'" />
+	</Target>
 
 </Project>
