@@ -12,6 +12,16 @@
 		<Content Remove="wwwroot\app\src\**" />
 		<None Include="wwwroot\app\src\**" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="wwwroot\app\src\components\collapseTest\CollapseTest.tsx" />
+	  <None Remove="wwwroot\app\src\components\common\accordion\Accordion.tsx" />
+	  <None Remove="wwwroot\app\src\components\common\accordion\AccordionSection.tsx" />
+	  <None Remove="wwwroot\app\src\components\common\accordion\AccordionSectionHandler.tsx" />
+	  <None Remove="wwwroot\app\src\components\common\accordion\props.ts" />
+	  <None Remove="wwwroot\app\src\components\common\accordion\state.ts" />
+	  <None Remove="wwwroot\app\src\components\common\collapse\Collapse.tsx" />
+	  <None Remove="wwwroot\app\src\components\common\collapse\props.ts" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.App" />
@@ -20,6 +30,17 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <TypeScriptCompile Include="wwwroot\app\src\components\collapseTest\CollapseTest.tsx" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\Accordion.tsx" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\AccordionSection.tsx" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\AccordionSectionHandler.tsx" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\props.ts" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\state.ts" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\collapse\Collapse.tsx" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\collapse\props.ts" />
 	</ItemGroup>
 
 	<ItemGroup>
