@@ -9,7 +9,13 @@ export interface AccordionSectionProps {
 
 export interface AccordionSectionHandlerProps {
     sectionTitle: string;
-    accordionIndex: number;
+    sectionId: string;
     expanded: boolean;
-    expandedToggler: Function;
+    coordinationCallback: Function;
+    coordinationCallbackCollection: CoordinationSectionCallback[];
+}
+
+export interface CoordinationSectionCallback {
+    sectionId: string;
+    callBack: Function;
 }

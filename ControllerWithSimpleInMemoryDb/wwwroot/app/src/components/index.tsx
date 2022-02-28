@@ -8,7 +8,6 @@ import { DevsWebApi } from "./devsEditor/DevsEditor/webApi";
 
 function renderDevsEditor(container: Element, api: DevsWebApi, pubSub: PubSub) {
     ReactDOM.render(
-        <React.StrictMode>
             <Accordion collapseAsAccordion={true} sectionIndexInitialExpandeds={[0,2,3]}>
                 <AccordionSection sectionTitle="SECTION YO 0">
                     <div>YO!  -0-</div>
@@ -22,8 +21,7 @@ function renderDevsEditor(container: Element, api: DevsWebApi, pubSub: PubSub) {
                 <AccordionSection sectionTitle="SECTION YO 3">
                     <div>YO! -3-</div>
                 </AccordionSection>
-            </Accordion>
-        </React.StrictMode>,
+            </Accordion>,
         container
     )
 }

@@ -2,12 +2,9 @@
 import CreateUUID from "../../../shared/uuid";
 import { AccordionSection } from "./AccordionSection";
 import { AccordionSectionHandler } from "./AccordionSectionHandler";
-import { AccordionProps } from "./props";
-import { AccordionSectionState, AccordionState } from "./state";
+import { AccordionProps, CoordinationSectionCallback } from "./props";
 
-export class Accordion extends React.Component<AccordionProps, AccordionState>{
-    childrenStates: AccordionSectionState[] = [];
-
+export class Accordion extends React.Component<AccordionProps>{
     constructor(props) {
         super(props);
 
@@ -21,41 +18,18 @@ export class Accordion extends React.Component<AccordionProps, AccordionState>{
             }
         }
 
-        this.toggleExpanded = this.toggleExpanded.bind(this);
-        this.state = {
-            sections: this.childrenStates
-        }
+        this.onSectionExpandChanged = this.onSectionExpandChanged.bind(this);
     }
 
-    toggleExpanded(sectionIndex) {
-        let currentExpandeds = this.state.sections;
-        let currentExpanded = currentExpandeds[sectionIndex].expanded;
+    childrenStates = [];
+    childCoordinationCallbacks: CoordinationSectionCallback[] = [];
 
-        let newExpandeds: AccordionSectionState[] = [];
-        currentExpandeds.forEach((section, i) => newExpandeds.push({ expanded: section.expanded }));
+    onSectionExpandChanged(sectionId) {
+        if (!this.props.collapseAsAccordion) return;
 
-        // AS ACCORDION -- accordion-style expand/collapse
-        if (this.props.collapseAsAccordion) {
+        let otherSectionsToCall = this.childCoordinationCallbacks.filter((section) => section.sectionId !== sectionId);
 
-            // JUST COLLAPSING the current expanded section
-            if (currentExpanded) {
-                newExpandeds[sectionIndex].expanded = !currentExpanded;
-                this.setState({ sections: newExpandeds });
-                return;
-            }
-
-            // EXPANDING the current collapsed section => need to ensure all other sections are collapsed
-            newExpandeds.forEach((section, i) => i === sectionIndex ? section.expanded = !currentExpanded : section.expanded = currentExpanded)
-
-            this.setState({ sections: newExpandeds });
-
-            return;
-        }
-
-        // NOT AS ACCORDION -- ALWAYS JUST FLIPPING the current section expanded state
-        newExpandeds[sectionIndex].expanded = !currentExpanded;
-        this.setState({ sections: newExpandeds });
-        return;
+        otherSectionsToCall.forEach((section) => section.callBack(sectionId));
     }
 
     render() {
@@ -67,9 +41,10 @@ export class Accordion extends React.Component<AccordionProps, AccordionState>{
             {accordionSections.map((section, i) =>
                 <AccordionSectionHandler key={CreateUUID()}
                     sectionTitle={section.props.sectionTitle}
-                    accordionIndex={i}
-                    expanded={this.state.sections[i].expanded}
-                    expandedToggler={this.toggleExpanded}>
+                    sectionId={CreateUUID()}
+                    expanded={this.childrenStates[i].expanded}
+                    coordinationCallback={this.onSectionExpandChanged}
+                    coordinationCallbackCollection={this.childCoordinationCallbacks}>
                     {section.props.children}
                 </AccordionSectionHandler>
             )}
