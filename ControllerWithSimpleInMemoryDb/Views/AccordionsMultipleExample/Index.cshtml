@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Devs";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div id="accordion-one-container"></div>
+    </div>
+    <div class="col-md-4">
+        <div id="accordion-two-container"></div>
+    </div>
+    <div class="col-md-4">
+        <div id="accordion-three-container"></div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        var accordionOneContainer = document.getElementById("accordion-one-container");
+        ClientApp.Components.renderExampleAccordion(accordionOneContainer);
+
+        var accordionTwoContainer = document.getElementById("accordion-two-container");
+        ClientApp.Components.renderExampleAccordion(accordionTwoContainer);
+
+        var accordionThreeContainer = document.getElementById("accordion-three-container");
+        ClientApp.Components.renderExampleAccordion(accordionThreeContainer);
+    </script>
+}
