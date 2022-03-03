@@ -11,6 +11,13 @@ import { DevsEditorState } from "./state";
 export class Workflows {
     constructor(devsEditor: DevsEditor) {
         this.devsEditor = devsEditor;
+
+        this.getConsistentResetState = this.getConsistentResetState.bind(this);
+        this.refreshTable = this.refreshTable.bind(this);
+        this.save = this.save.bind(this);
+        this.view = this.view.bind(this);
+        this.edit = this.edit.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     devsEditor: DevsEditor;
