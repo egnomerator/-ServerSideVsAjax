@@ -8,20 +8,25 @@ import { DevsWebApi } from "./devsEditor/DevsEditor/webApi";
 
 function renderDevsEditor(container: Element, api: DevsWebApi, pubSub: PubSub) {
     ReactDOM.render(
-            <Accordion collapseAsAccordion={true} sectionIndexInitialExpandeds={[0,2,3]}>
-                <AccordionSection sectionTitle="SECTION YO 0">
-                    <div>YO!  -0-</div>
-                </AccordionSection>
-                <AccordionSection sectionTitle="SECTION TABLE 1">
-                    <DevsEditor devsWebApi={api} pubSub={pubSub} />
-                </AccordionSection>
-                <AccordionSection sectionTitle="SECTION YO 2">
-                    <div>YO!  -2-</div>
-                </AccordionSection>
-                <AccordionSection sectionTitle="SECTION YO 3">
-                    <div>YO! -3-</div>
-                </AccordionSection>
-            </Accordion>,
+        <Accordion collapseAsAccordion={true}>
+            <AccordionSection sectionTitle="SECTION YO 0" isExpanded={true}>
+                <div>YO!  -0-a</div>
+                <div>YO!  -0-b</div>
+                <div>YO!  -0-c</div>
+                <div>YO!  -0-d</div>
+            </AccordionSection>
+            <AccordionSection sectionTitle="SECTION TABLE 1">
+                <DevsEditor devsWebApi={api} pubSub={pubSub} />
+            </AccordionSection>
+            <AccordionSection sectionTitle="SECTION YO 2" isExpanded={true}>
+                <div>YO!  -2-a</div>
+                <div>YO!  -2-b</div>
+            </AccordionSection>
+            <AccordionSection sectionTitle="SECTION YO 3">
+                <div>YO! -3-a</div>
+                <div>YO! -3-b</div>
+            </AccordionSection>
+        </Accordion>,
         container
     )
 }

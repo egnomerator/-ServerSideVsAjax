@@ -1,5 +1,6 @@
 ﻿import * as React from "react";
 import { Collapse } from "../collapse/Collapse";
+import { CoordinationSectionCallback } from "./coordinationSectionsRegistry";
 import { AccordionSectionHandlerProps } from "./props";
 import { AccordionSectionState } from "./state";
 
@@ -7,16 +8,16 @@ export class AccordionSectionHandler extends React.Component<AccordionSectionHan
     constructor(props: AccordionSectionHandlerProps) {
         super(props);
 
-        this.coordinationCallback = this.coordinationCallback.bind(this);
+        this.collapseCoordinationCallback = this.collapseCoordinationCallback.bind(this);
         this.toggleExpanded = this.toggleExpanded.bind(this);
 
-        const myIndex = props.coordinationCallbackCollection.findIndex((callBack) => callBack.sectionId === props.sectionId);
-        if(myIndex === -1) props.coordinationCallbackCollection.push({ sectionId: props.sectionId, callBack: this.coordinationCallback });
+        const sectionCallback: CoordinationSectionCallback = { sectionId: this.props.sectionId, callback: this.collapseCoordinationCallback };
+        this.props.registerWithCoordinationSections(sectionCallback);
 
-        this.state = { expanded: props.expanded }
+        this.state = { expanded: this.props.expanded }
     }
 
-    coordinationCallback(sectionId) {
+    collapseCoordinationCallback(sectionId: string) {
         if (sectionId !== this.props.sectionId && this.state.expanded) this.toggleExpanded(null);
     }
 
@@ -44,7 +45,6 @@ export class AccordionSectionHandler extends React.Component<AccordionSectionHan
             <Collapse expanded={this.state.expanded}>
                 <div>
                     <div className="card-body">
-                        <div>{this.props.sectionId}</div>
                         {this.props.children}
                     </div>
                 </div>

@@ -2,34 +2,35 @@
 import CreateUUID from "../../../shared/uuid";
 import { AccordionSection } from "./AccordionSection";
 import { AccordionSectionHandler } from "./AccordionSectionHandler";
-import { AccordionProps, CoordinationSectionCallback } from "./props";
+import { CoordinationSectionCallback, createSectionsRegistry, IcollapseCoordinationSectionsRegistry } from "./coordinationSectionsRegistry";
+import { AccordionProps } from "./props";
 
 export class Accordion extends React.Component<AccordionProps>{
+    collapseCoordinationSectionsRegistry: IcollapseCoordinationSectionsRegistry;
+
     constructor(props) {
         super(props);
 
-        let children = React.Children.toArray(this.props.children);
-        if (this.props.sectionIndexInitialExpandeds !== undefined) {
-            children.forEach((child, i) => this.childrenStates.push({ expanded: this.props.sectionIndexInitialExpandeds.includes(i) }));
-        } else {
-            if (this.props.sectionIndexInitialExpanded === undefined) children.forEach((child, i) => this.childrenStates.push({ expanded: i === 0 }));
-            if (this.props.sectionIndexInitialExpanded !== undefined) {
-                children.forEach((child, i) => this.childrenStates.push({ expanded: i === this.props.sectionIndexInitialExpanded }));
-            }
-        }
+        this.onSectionExpand = this.onSectionExpand.bind(this);
+        this.registerWithCoordinationSections = this.registerWithCoordinationSections.bind(this);
 
-        this.onSectionExpandChanged = this.onSectionExpandChanged.bind(this);
+        this.collapseCoordinationSectionsRegistry = createSectionsRegistry();
     }
 
-    childrenStates = [];
-    childCoordinationCallbacks: CoordinationSectionCallback[] = [];
-
-    onSectionExpandChanged(sectionId) {
+    onSectionExpand(sectionId) {
         if (!this.props.collapseAsAccordion) return;
 
-        let otherSectionsToCall = this.childCoordinationCallbacks.filter((section) => section.sectionId !== sectionId);
+        this.collapseCoordinationSectionsRegistry.callSectionsOtherThan(sectionId);
+    }
 
-        otherSectionsToCall.forEach((section) => section.callBack(sectionId));
+    registerWithCoordinationSections(section: CoordinationSectionCallback) {
+        this.collapseCoordinationSectionsRegistry.registerSection(section);
+    }
+
+    determineSectionInitialExpandedStatus(isExpanded: boolean) {
+        return isExpanded === undefined || isExpanded === null
+            ? false
+            : isExpanded;
     }
 
     render() {
@@ -37,14 +38,14 @@ export class Accordion extends React.Component<AccordionProps>{
         let accordionSections: AccordionSection[] = []
         React.Children.toArray(this.props.children).forEach((child, i) => accordionSections.push(child as AccordionSection));
 
-        return <div id="accordion" style={{ width: "100%" }}>
+        return <div style={{ width: "100%" }}>
             {accordionSections.map((section, i) =>
                 <AccordionSectionHandler key={CreateUUID()}
                     sectionTitle={section.props.sectionTitle}
                     sectionId={CreateUUID()}
-                    expanded={this.childrenStates[i].expanded}
-                    coordinationCallback={this.onSectionExpandChanged}
-                    coordinationCallbackCollection={this.childCoordinationCallbacks}>
+                    expanded={this.determineSectionInitialExpandedStatus(section.props.isExpanded)}
+                    coordinationCallback={this.onSectionExpand}
+                    registerWithCoordinationSections={this.registerWithCoordinationSections}>
                     {section.props.children}
                 </AccordionSectionHandler>
             )}

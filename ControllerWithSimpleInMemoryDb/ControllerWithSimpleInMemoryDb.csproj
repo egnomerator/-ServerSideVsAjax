@@ -17,6 +17,7 @@
 	  <None Remove="wwwroot\app\src\components\common\accordion\Accordion.tsx" />
 	  <None Remove="wwwroot\app\src\components\common\accordion\AccordionSection.tsx" />
 	  <None Remove="wwwroot\app\src\components\common\accordion\AccordionSectionHandler.tsx" />
+	  <None Remove="wwwroot\app\src\components\common\accordion\coordinationSectionsRegistry.ts" />
 	  <None Remove="wwwroot\app\src\components\common\accordion\props.ts" />
 	  <None Remove="wwwroot\app\src\components\common\accordion\state.ts" />
 	  <None Remove="wwwroot\app\src\components\common\collapse\Collapse.tsx" />
@@ -37,6 +38,7 @@
 	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\Accordion.tsx" />
 	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\AccordionSection.tsx" />
 	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\AccordionSectionHandler.tsx" />
+	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\coordinationSectionsRegistry.ts" />
 	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\props.ts" />
 	  <TypeScriptCompile Include="wwwroot\app\src\components\common\accordion\state.ts" />
 	  <TypeScriptCompile Include="wwwroot\app\src\components\common\collapse\Collapse.tsx" />

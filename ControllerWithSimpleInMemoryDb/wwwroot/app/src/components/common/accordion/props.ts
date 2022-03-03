@@ -1,10 +1,12 @@
-﻿export interface AccordionProps {
+﻿import { CoordinationSectionCallback } from "./coordinationSectionsRegistry";
+
+export interface AccordionProps {
     collapseAsAccordion?: boolean;
-    sectionIndexInitialExpanded?: number;
-    sectionIndexInitialExpandeds?: number[];
 }
+
 export interface AccordionSectionProps {
     sectionTitle: string;
+    isExpanded?: boolean;
 }
 
 export interface AccordionSectionHandlerProps {
@@ -12,10 +14,5 @@ export interface AccordionSectionHandlerProps {
     sectionId: string;
     expanded: boolean;
     coordinationCallback: Function;
-    coordinationCallbackCollection: CoordinationSectionCallback[];
-}
-
-export interface CoordinationSectionCallback {
-    sectionId: string;
-    callBack: Function;
+    registerWithCoordinationSections: (section: CoordinationSectionCallback) => void;
 }

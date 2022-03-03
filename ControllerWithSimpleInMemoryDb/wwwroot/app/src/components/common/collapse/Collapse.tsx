@@ -38,24 +38,21 @@ export class Collapse extends React.Component<CollapseProps> {
     }
 
     shouldComponentUpdate(nextProps: CollapseProps) {
-        return this.props.expanded !== nextProps.expanded
-            || this.props.children !== nextProps.children;
+        const expandedChanged = this.props.expanded !== nextProps.expanded;
+        const childrenChanged = this.props.children !== nextProps.children;
+        return expandedChanged || childrenChanged;
     }
 
     getSnapshotBeforeUpdate() {
         if (this.requiredDOMRefsMissing()) return null;
 
-        //return this.containerDOM.current.style.height === this.initialStyle.height ? `${this.contentDOM.current.clientHeight}px` : null;
         const newContentHeight = this.containerDOM.current.style.height === this.initialStyle.height ? `${this.contentDOM.current.clientHeight}px` : null;
-        const shouldSetNewHeight = !(this.requiredDOMRefsMissing() || newContentHeight === null);
-        if (shouldSetNewHeight) this.containerDOM.current.style.height = newContentHeight;
+        const canSetContainerToNewHeight = !this.requiredDOMRefsMissing() && newContentHeight !== null;
+        if (canSetContainerToNewHeight) this.containerDOM.current.style.height = newContentHeight;
         return null;
     }
 
-    componentDidUpdate(newContentHeight) {
-        //const shouldSetNewHeight = !(this.requiredDOMRefsMissing() || newContentHeight === null);
-        //if (shouldSetNewHeight) this.containerDOM.current.style.height = newContentHeight;
-
+    componentDidUpdate() {
         this.onResize();
     }
 
@@ -71,40 +68,46 @@ export class Collapse extends React.Component<CollapseProps> {
         const containerHeight = Math.floor(this.containerDOM.current.clientHeight);
         const contentHeight = Math.floor(this.contentDOM.current.clientHeight);
 
-        const currentExpanded = this.props.expanded;
-        const isFullyOpened = currentExpanded && Math.abs(contentHeight - containerHeight) <= 1;
-        const isFullyClosed = !currentExpanded && Math.abs(containerHeight) <= 1;
+        // TODO: further refactoring notes
+        //  - goal is to make what's happening clearer
+        //  - BASICS:
+        //      - 1) determine if the given goal state is to be expanded or collapsed
+        //      - 2a) clearly show a workflow toward EXPANDING if that's the goal
+        //      - 2b) clearly show a workflow toward COLLAPSING if that's the goal
+        const targetExpanded = this.props.expanded;
+        const isFullyExpanded = targetExpanded && Math.abs(contentHeight - containerHeight) <= 1;
+        const isFullyCollapsed = !targetExpanded && Math.abs(containerHeight) <= 1;
 
-        if (isFullyOpened || isFullyClosed) {
-            this.onRest(currentExpanded, contentHeight);
+        if (isFullyExpanded || isFullyCollapsed) {
+            this.onRest(targetExpanded, contentHeight);
         } else {
-            this.onWork(currentExpanded, contentHeight);
+            this.onWork(targetExpanded, contentHeight);
             this.timeout = setTimeout(() => this.onResize(), this.checkTimeout);
         }
     }
 
-    onRest(expanded, contentHeight) {
+    onRest(targetExpanded, contentHeight) {
         if (this.requiredDOMRefsMissing()) return;
 
-        const hasOpened = expanded && this.containerDOM.current.style.height === `${contentHeight}px`;
-        const hasClosed = !expanded && this.containerDOM.current.style.height === '0px';
+        const hasExpanded = targetExpanded && this.containerDOM.current.style.height === `${contentHeight}px`;
+        const hasCollapsed = !targetExpanded && this.containerDOM.current.style.height === this.collapsedStyle.height;
 
-        if (hasOpened || hasClosed) {
-            this.containerDOM.current.style.overflow = expanded ? 'initial' : 'hidden';
-            this.containerDOM.current.style.height = expanded ? 'auto' : '0px';
+        if (hasExpanded || hasCollapsed) {
+            this.containerDOM.current.style.overflow = targetExpanded ? this.initialStyle.overflow : this.collapsedStyle.overflow;
+            this.containerDOM.current.style.height = targetExpanded ? this.initialStyle.height : this.collapsedStyle.height;
         }
     }
 
-    onWork(expanded, contentHeight) {
+    onWork(targetExpanded, contentHeight) {
         if (this.requiredDOMRefsMissing()) return;
 
-        const isOpening = expanded && this.containerDOM.current.style.height === `${contentHeight}px`;
-        const isClosing = !expanded && this.containerDOM.current.style.height === '0px';
+        const isOpening = targetExpanded && this.containerDOM.current.style.height === `${contentHeight}px`;
+        const isClosing = !targetExpanded && this.containerDOM.current.style.height === this.collapsedStyle.height;
 
         if (isOpening || isClosing) return;
 
-        this.containerDOM.current.style.overflow = 'hidden';
-        this.containerDOM.current.style.height = expanded ? `${contentHeight}px` : '0px';
+        this.containerDOM.current.style.overflow = this.collapsedStyle.overflow;
+        this.containerDOM.current.style.height = targetExpanded ? `${contentHeight}px` : this.collapsedStyle.height;
     }
 
     render() {
