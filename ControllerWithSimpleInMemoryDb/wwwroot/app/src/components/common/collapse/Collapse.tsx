@@ -12,8 +12,8 @@ export class Collapse extends React.Component<CollapseProps> {
     checkTimeout: number;
     timeout;
     initialStyle: CollapseStyle;
+    expandedStyle: CollapseStyle;
     collapsedStyle: CollapseStyle;
-    appliedStyle: CollapseStyle;
 
     constructor(props: CollapseProps) {
         super(props);
@@ -23,18 +23,23 @@ export class Collapse extends React.Component<CollapseProps> {
         this.checkTimeout = 50;
         this.timeout = setTimeout(() => { }, this.checkTimeout);
         clearTimeout(this.timeout);
-        this.initialStyle = { height: "auto", overflow: "initial" };
+        this.expandedStyle = { height: "auto", overflow: "initial" };
         this.collapsedStyle = { height: "0px", overflow: "hidden" };
-        this.appliedStyle = props.expanded ? this.initialStyle : this.collapsedStyle;
+        this.initialStyle = this.props.expanded ? this.expandedStyle : this.collapsedStyle;
 
-        this.onResize = this.onResize.bind(this);
-        this.onRest = this.onRest.bind(this);
-        this.onWork = this.onWork.bind(this);
+        this.resizeContainer = this.resizeContainer.bind(this);
+        this.continueResizingContainer = this.continueResizingContainer.bind(this);
+        this.continueExpanding = this.continueExpanding.bind(this);
+        this.continueCollapsing = this.continueCollapsing.bind(this);
+        this.finishResizingContainer = this.finishResizingContainer.bind(this);
+        this.finishExpanding = this.finishExpanding.bind(this);
+        this.finishCollapsing = this.finishCollapsing.bind(this);
+
         this.requiredDOMRefsMissing = this.requiredDOMRefsMissing.bind(this);
     }
 
     componentDidMount() {
-        this.onResize();
+        this.resizeContainer();
     }
 
     shouldComponentUpdate(nextProps: CollapseProps) {
@@ -46,21 +51,21 @@ export class Collapse extends React.Component<CollapseProps> {
     getSnapshotBeforeUpdate() {
         if (this.requiredDOMRefsMissing()) return null;
 
-        const newContentHeight = this.containerDOM.current.style.height === this.initialStyle.height ? `${this.contentDOM.current.clientHeight}px` : null;
+        const newContentHeight = this.containerDOM.current.style.height === this.expandedStyle.height ? `${this.contentDOM.current.clientHeight}px` : null;
         const canSetContainerToNewHeight = !this.requiredDOMRefsMissing() && newContentHeight !== null;
         if (canSetContainerToNewHeight) this.containerDOM.current.style.height = newContentHeight;
         return null;
     }
 
     componentDidUpdate() {
-        this.onResize();
+        this.resizeContainer();
     }
 
     componentWillUnmount() {
         clearTimeout(this.timeout);
     }
 
-    onResize() {
+    resizeContainer() {
         clearTimeout(this.timeout);
 
         if (this.requiredDOMRefsMissing()) return;
@@ -68,57 +73,73 @@ export class Collapse extends React.Component<CollapseProps> {
         const containerHeight = Math.floor(this.containerDOM.current.clientHeight);
         const contentHeight = Math.floor(this.contentDOM.current.clientHeight);
 
-        // TODO: further refactoring notes
-        //  - goal is to make what's happening clearer
-        //  - BASICS:
-        //      - 1) determine if the given goal state is to be expanded or collapsed
-        //      - 2a) clearly show a workflow toward EXPANDING if that's the goal
-        //      - 2b) clearly show a workflow toward COLLAPSING if that's the goal
-        const targetExpanded = this.props.expanded;
-        const isFullyExpanded = targetExpanded && Math.abs(contentHeight - containerHeight) <= 1;
-        const isFullyCollapsed = !targetExpanded && Math.abs(containerHeight) <= 1;
+        const isSetToExpand = this.props.expanded;
+        const isFinishedExpanding = isSetToExpand && Math.abs(contentHeight - containerHeight) <= 1;
+        const isFinishedCollapsing = !isSetToExpand && Math.abs(containerHeight) <= 1;
 
-        if (isFullyExpanded || isFullyCollapsed) {
-            this.onRest(targetExpanded, contentHeight);
+        if (isFinishedExpanding || isFinishedCollapsing) {
+            this.finishResizingContainer(isSetToExpand, contentHeight);
         } else {
-            this.onWork(targetExpanded, contentHeight);
-            this.timeout = setTimeout(() => this.onResize(), this.checkTimeout);
+            this.continueResizingContainer(isSetToExpand, contentHeight);
+            this.timeout = setTimeout(() => this.resizeContainer(), this.checkTimeout);
         }
     }
 
-    onRest(targetExpanded, contentHeight) {
+    continueResizingContainer(isSetToExpand, contentHeight) {
         if (this.requiredDOMRefsMissing()) return;
 
-        const hasExpanded = targetExpanded && this.containerDOM.current.style.height === `${contentHeight}px`;
-        const hasCollapsed = !targetExpanded && this.containerDOM.current.style.height === this.collapsedStyle.height;
-
-        if (hasExpanded || hasCollapsed) {
-            this.containerDOM.current.style.overflow = targetExpanded ? this.initialStyle.overflow : this.collapsedStyle.overflow;
-            this.containerDOM.current.style.height = targetExpanded ? this.initialStyle.height : this.collapsedStyle.height;
-        }
+        if (isSetToExpand) this.continueExpanding(contentHeight);
+        if (!isSetToExpand) this.continueCollapsing();
     }
 
-    onWork(targetExpanded, contentHeight) {
-        if (this.requiredDOMRefsMissing()) return;
+    continueExpanding(contentHeight) {
+        const isFinishedExpanding = this.containerDOM.current.style.height === `${contentHeight}px`;
+        if (isFinishedExpanding) return;
 
-        const isOpening = targetExpanded && this.containerDOM.current.style.height === `${contentHeight}px`;
-        const isClosing = !targetExpanded && this.containerDOM.current.style.height === this.collapsedStyle.height;
+        this.containerDOM.current.style.overflow = this.collapsedStyle.overflow; // during transition, overflow always hidden
+        this.containerDOM.current.style.height = `${contentHeight}px`;
+    }
 
-        if (isOpening || isClosing) return;
+    continueCollapsing() {
+        const isFinishedCollapsing = this.containerDOM.current.style.height === this.collapsedStyle.height;
+        if (isFinishedCollapsing) return;
 
         this.containerDOM.current.style.overflow = this.collapsedStyle.overflow;
-        this.containerDOM.current.style.height = targetExpanded ? `${contentHeight}px` : this.collapsedStyle.height;
+        this.containerDOM.current.style.height = this.collapsedStyle.height;
     }
 
-    render() {
-        return <div ref={this.containerDOM} className="collapseTransition" style={this.appliedStyle} aria-hidden={!this.props.expanded}>
-            <div ref={this.contentDOM}>
-                {this.props.children}
-            </div>
-        </div>
+    finishResizingContainer(isSetToExpand, contentHeight) {
+        if (this.requiredDOMRefsMissing()) return;
+
+        if (isSetToExpand) this.finishExpanding(contentHeight);
+        if (!isSetToExpand) this.finishCollapsing();
+    }
+
+    finishExpanding(contentHeight) {
+        const isFinishedExpanding = this.containerDOM.current.style.height === `${contentHeight}px`;
+        if (!isFinishedExpanding) return;
+
+        this.containerDOM.current.style.overflow = this.expandedStyle.overflow;
+        this.containerDOM.current.style.height = this.expandedStyle.height;
+    }
+
+    finishCollapsing() {
+        const isFinishedCollapsing = this.containerDOM.current.style.height === this.collapsedStyle.height;
+        if (!isFinishedCollapsing) return;
+
+        this.containerDOM.current.style.overflow = this.collapsedStyle.overflow;
+        this.containerDOM.current.style.height = this.collapsedStyle.height;
     }
 
     requiredDOMRefsMissing() {
         return !this.containerDOM || !this.contentDOM;
+    }
+
+    render() {
+        return <div ref={this.containerDOM} className="collapseTransition" style={this.initialStyle} aria-hidden={!this.props.expanded}>
+            <div ref={this.contentDOM}>
+                {this.props.children}
+            </div>
+        </div>
     }
 }
