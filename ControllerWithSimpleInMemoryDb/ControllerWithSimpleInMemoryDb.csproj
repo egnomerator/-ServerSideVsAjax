@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
@@ -31,7 +30,6 @@
   </ItemGroup>
 
     <ItemGroup>
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\AjaxResult\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
