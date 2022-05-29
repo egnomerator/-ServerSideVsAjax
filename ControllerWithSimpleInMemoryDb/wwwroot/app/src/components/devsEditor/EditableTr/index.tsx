@@ -1,5 +1,4 @@
 ﻿import * as React from "react";
-import { TrEditorCell } from "../TrEditorCell";
 import { Dev } from "../models/Dev";
 import { EditableTrProps } from "./props";
 import { EditableTrState } from "./state";
@@ -46,11 +45,11 @@ export class EditableTr extends React.Component<EditableTrProps, EditableTrState
                     onChange={this.handleDevNameChange}
                 />
             </td>
-            <TrEditorCell
-                view={this.view}
-                edit={this.edit}
-                delete={this.delete}
-            />
+            <td>
+                <button onClick={this.view}>View</button>{" "}
+                <button onClick={this.edit}>Edit</button>{" "}
+                <button onClick={this.delete}>Delete</button>
+            </td>
         </tr>
     }
 }
