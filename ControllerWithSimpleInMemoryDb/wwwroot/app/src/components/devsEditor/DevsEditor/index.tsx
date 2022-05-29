@@ -1,5 +1,4 @@
 ﻿import * as React from "react";
-import { EditableTable } from "../EditableTable";
 import { Dev } from "../models/Dev";
 import { EditableTableState } from "./state";
 import { EditableTableProps } from "./props";
@@ -75,12 +74,14 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
         });
     }
 
-    edit(dev: Dev): void {
+    edit(id: number): void {
+        const devToEdit = this.state.devs.filter(d => d.id === id)[0];
+
         const resetState = this.getConsistentResetState();
-        resetState.devs = this.getExistingDevsGivenThisEditedDev(dev);
+        resetState.devs = this.getExistingDevsGivenThisEditedDev(devToEdit);
         this.setState(resetState);
 
-        const updateDev = this.props.devsWebApi.editDev(dev);
+        const updateDev = this.props.devsWebApi.editDev(devToEdit);
 
         updateDev.done((result, textStatus, xhr) => {
             const newAjaxResult = this.getAjaxResult(result, textStatus, xhr);
@@ -198,13 +199,38 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
                 <button onClick={this.save}>Save Dev</button>
             </div>
 
-            <EditableTable
-                devs={this.state.devs ?? []}
-                handleDevNameChange={this.handleDevNameChange}
-                view={this.view}
-                edit={this.edit}
-                delete={this.delete}
-            />
+            <table className="table">
+                <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Name</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        this.state.devs === null || this.state.devs.length < 1
+                            ? <tr><td colSpan={3} className="text-center" >There are no devs.</td></tr>
+                            : this.state.devs.map((dev) =>
+                                <tr key={dev.id}>
+                                    <td>{dev.id}</td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={dev.name}
+                                            onChange={(e) => this.handleDevNameChange(dev.id, e)}
+                                        />
+                                    </td>
+                                    <td>
+                                        <button onClick={(e) => this.view(dev.id)}>View</button>{" "}
+                                        <button onClick={(e) => this.edit(dev.id)}>Edit</button>{" "}
+                                        <button onClick={(e) => this.delete(dev.id)}>Delete</button>
+                                    </td>
+                                </tr>
+                            )
+                    }
+                </tbody>
+            </table>
 
             <p></p>
             <div>
