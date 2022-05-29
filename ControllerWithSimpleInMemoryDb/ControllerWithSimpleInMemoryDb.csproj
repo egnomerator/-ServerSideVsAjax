@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
     <Content Remove="wwwroot\app\src\components\index.tsx" />
   </ItemGroup>
@@ -28,7 +27,6 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTable\index.tsx" />
     </ItemGroup>

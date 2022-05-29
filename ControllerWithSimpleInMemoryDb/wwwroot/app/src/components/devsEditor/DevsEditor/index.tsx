@@ -16,6 +16,7 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
 
         this.getNextId = this.getNextId.bind(this);
         this.handleCreateDevNameChange = this.handleCreateDevNameChange.bind(this);
+        this.handleDevNameChange = this.handleDevNameChange.bind(this);
 
         const initialState = this.getConsistentResetState();
         this.state = initialState;
@@ -167,6 +168,13 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
         this.setState({ createDevName: event.target.value });
     }
 
+    handleDevNameChange(id: number, event) {
+        const editedDev: Dev = { id: id, name: event.target.value };
+        const editedDevss = this.state.devs.map(d => d.id === id ? editedDev : d);
+
+        this.setState({ devs: editedDevss });
+    }
+
     render() {
         return <div>
             <div className="h2" style={{ display: "inline" }}>
@@ -192,6 +200,7 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
 
             <EditableTable
                 devs={this.state.devs ?? []}
+                handleDevNameChange={this.handleDevNameChange}
                 view={this.view}
                 edit={this.edit}
                 delete={this.delete}
