@@ -1,6 +1,5 @@
 ﻿import * as React from "react";
 import { CreateDev } from "../CreateDev";
-import { DevDetails } from "../DevDetails";
 import { EditableTable } from "../EditableTable";
 import { Dev } from "../models/Dev";
 import { EditableTableState } from "./state";
@@ -177,7 +176,10 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
             />
 
             <p></p>
-            <DevDetails details={this.state.devDetails} />
+            <div>
+                <div className="h4" style={{ display: "inline" }}>Dev Details:</div>{" "}
+                <div style={{ display: "inline" }}>{this.state.devDetails}</div>
+            </div>
             <p></p>
             <div>
                 <div className="h4" style={{ display: "inline" }}>Ajax Result:</div>{" "}

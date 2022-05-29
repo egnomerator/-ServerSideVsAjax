@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
-    <Content Remove="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
     <Content Remove="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
@@ -31,7 +30,6 @@
 
     <ItemGroup>
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\CreateDev\index.tsx" />
-      <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevDetails\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\DevsEditor\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\EditableTr\index.tsx" />
       <TypeScriptCompile Include="wwwroot\app\src\components\devsEditor\TrEditorCell\index.tsx" />
