@@ -1,5 +1,4 @@
 ﻿import * as React from "react";
-import { CreateDev } from "../CreateDev";
 import { EditableTable } from "../EditableTable";
 import { Dev } from "../models/Dev";
 import { EditableTableState } from "./state";
@@ -14,6 +13,9 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
         this.view = this.view.bind(this);
         this.edit = this.edit.bind(this);
         this.delete = this.delete.bind(this);
+
+        this.getNextId = this.getNextId.bind(this);
+        this.handleCreateDevNameChange = this.handleCreateDevNameChange.bind(this);
 
         const initialState = this.getConsistentResetState();
         this.state = initialState;
@@ -39,11 +41,11 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
         });
     }
 
-    save(name: string, onSuccessfulSave: () => void): void {
+    save(): void {
         const resetState = this.getConsistentResetState();
         this.setState(resetState);
 
-        const newDev = { id: this.state.nextId, name: name };
+        const newDev = { id: this.state.nextId, name: this.state.createDevName };
         const createDev = devsWebApi.createDev(newDev);
 
         createDev.done((result, textStatus, xhr) => {
@@ -53,8 +55,7 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
 
             const nextId = this.determineNextId(newDevs);
             const newAjaxResult = this.getAjaxResult(result, textStatus, xhr);
-            this.setState({ nextId: nextId, devs: newDevs, ajaxResult: newAjaxResult });
-            onSuccessfulSave();
+            this.setState({ nextId: nextId, devs: newDevs, createDevName: "", ajaxResult: newAjaxResult });
         });
     }
 
@@ -121,6 +122,7 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
         return {
             nextId: this.state === undefined ? this.determineNextId([]) : this.determineNextId(this.state.devs),
             devs: this.state === undefined ? null : this.state.devs,
+            createDevName: "",
             devDetails: "",
             ajaxResult: ""
         }
@@ -157,6 +159,14 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
         return existingDevsCopy;
     }
 
+    getNextId() {
+        return this.state.devs !== null ? this.state.nextId.toString() : "";
+    }
+
+    handleCreateDevNameChange(event) {
+        this.setState({ createDevName: event.target.value });
+    }
+
     render() {
         return <div>
             <div className="h2" style={{ display: "inline" }}>
@@ -166,7 +176,19 @@ export class DevsEditor extends React.Component<EditableTableProps, EditableTabl
                 Refresh
             </a>
             <p></p>
-            <CreateDev nextId={this.state.nextId} nextIdIsKnown={this.state.devs !== null} save={this.save} />
+            <div>
+                <div>
+                    <input id="reactNewDevId" type="number" readOnly={true} value={this.getNextId()} />
+                    {" "}
+                    <label htmlFor="reactNewDevId">Next Id</label>
+                </div>
+                <div>
+                    <input id="reactNewDevName" type="text" value={this.state.createDevName} onChange={this.handleCreateDevNameChange} />
+                    {" "}
+                    <label htmlFor="reactNewDevName">Name</label>
+                </div>
+                <button onClick={this.save}>Save Dev</button>
+            </div>
 
             <EditableTable
                 devs={this.state.devs ?? []}
